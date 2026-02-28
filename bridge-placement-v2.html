@@ -1,0 +1,1499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bridge Placement Guide — D-28 Style Acoustic Guitar</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=IBM+Plex+Mono:wght@300;400;500&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #F5F0E8;
+    --parchment: #EDE7D9;
+    --ink: #1A1714;
+    --brown: #6B4226;
+    --brown-light: #8B6243;
+    --rust: #A0522D;
+    --gold: #C4993B;
+    --gold-dim: #B8923A44;
+    --blue-print: #2B4A6F;
+    --blue-light: #3D6A9F;
+    --blue-grid: #2B4A6F18;
+    --green-ok: #3A7D44;
+    --red-warn: #9B2D30;
+    --shadow: rgba(26, 23, 20, 0.12);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Crimson Pro', Georgia, serif;
+    background: var(--cream);
+    color: var(--ink);
+    font-size: 18px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 4rem 2rem;
+    position: relative;
+    background:
+      radial-gradient(ellipse at 30% 20%, rgba(196,153,59,0.08) 0%, transparent 50%),
+      radial-gradient(ellipse at 70% 80%, rgba(107,66,38,0.06) 0%, transparent 50%),
+      var(--cream);
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(var(--blue-grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--blue-grid) 1px, transparent 1px);
+    background-size: 24px 24px;
+    opacity: 0.5;
+    pointer-events: none;
+  }
+
+  .hero-badge {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--brown-light);
+    border: 1px solid var(--brown-light);
+    padding: 0.35em 1.2em;
+    border-radius: 2px;
+    margin-bottom: 2.5rem;
+    position: relative;
+    z-index: 1;
+    animation: fadeDown 0.8s ease-out both;
+  }
+
+  .hero h1 {
+    font-family: 'DM Serif Display', Georgia, serif;
+    font-size: clamp(2.8rem, 7vw, 5.5rem);
+    font-weight: 400;
+    line-height: 1.1;
+    color: var(--ink);
+    position: relative;
+    z-index: 1;
+    max-width: 800px;
+    animation: fadeDown 0.8s 0.15s ease-out both;
+  }
+
+  .hero h1 em {
+    font-style: italic;
+    color: var(--brown);
+  }
+
+  .hero-sub {
+    font-family: 'Crimson Pro', serif;
+    font-size: 1.25rem;
+    font-weight: 300;
+    color: var(--brown-light);
+    margin-top: 1.5rem;
+    max-width: 540px;
+    position: relative;
+    z-index: 1;
+    animation: fadeDown 0.8s 0.3s ease-out both;
+  }
+
+  .hero-spec {
+    margin-top: 3rem;
+    display: flex;
+    gap: 3rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    position: relative;
+    z-index: 1;
+    animation: fadeDown 0.8s 0.45s ease-out both;
+  }
+
+  .hero-spec div {
+    text-align: center;
+  }
+
+  .hero-spec .val {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 1.6rem;
+    font-weight: 500;
+    color: var(--blue-print);
+  }
+
+  .hero-spec .label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--brown-light);
+    margin-top: 0.2rem;
+  }
+
+  .scroll-hint {
+    position: absolute;
+    bottom: 2.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    animation: bounce 2s infinite;
+    z-index: 1;
+  }
+
+  .scroll-hint svg {
+    width: 24px;
+    height: 24px;
+    stroke: var(--brown-light);
+    stroke-width: 1.5;
+    fill: none;
+  }
+
+  /* ── GUITAR SVG HERO DRAWING ── */
+  .hero-drawing {
+    margin-top: 3rem;
+    position: relative;
+    z-index: 1;
+    animation: fadeDown 0.8s 0.55s ease-out both;
+  }
+
+  .hero-drawing svg {
+    width: 100%;
+    max-width: 780px;
+    height: auto;
+  }
+
+  /* ── NAVIGATION ── */
+  .toc {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(245, 240, 232, 0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(107,66,38,0.15);
+    padding: 0.8rem 2rem;
+    display: flex;
+    justify-content: center;
+    gap: 0.3rem;
+    flex-wrap: wrap;
+  }
+
+  .toc a {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--brown-light);
+    text-decoration: none;
+    padding: 0.4em 0.9em;
+    border-radius: 2px;
+    transition: all 0.2s;
+  }
+
+  .toc a:hover {
+    background: var(--brown);
+    color: var(--cream);
+  }
+
+  /* ── SECTIONS ── */
+  section {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 5rem 2rem;
+  }
+
+  section + section {
+    border-top: 1px solid rgba(107,66,38,0.12);
+  }
+
+  .section-number {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.65rem;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.5rem;
+  }
+
+  h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    font-weight: 400;
+    line-height: 1.2;
+    margin-bottom: 0.5rem;
+    color: var(--ink);
+  }
+
+  h2 em { font-style: italic; color: var(--brown); }
+
+  .section-lead {
+    font-size: 1.15rem;
+    font-weight: 300;
+    color: var(--brown-light);
+    margin-bottom: 2.5rem;
+    max-width: 600px;
+  }
+
+  h3 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.3rem;
+    font-weight: 400;
+    margin: 2rem 0 0.8rem;
+    color: var(--ink);
+  }
+
+  p { margin-bottom: 1rem; }
+
+  /* ── BLUEPRINT CARDS ── */
+  .blueprint {
+    background: #1E3350;
+    border-radius: 6px;
+    padding: 2rem;
+    margin: 2rem 0;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 8px 32px rgba(30,51,80,0.3);
+  }
+
+  .blueprint::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+    background-size: 20px 20px;
+    pointer-events: none;
+  }
+
+  .blueprint svg {
+    width: 100%;
+    height: auto;
+    display: block;
+    position: relative;
+    z-index: 1;
+  }
+
+  .blueprint-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.4);
+    margin-top: 1rem;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ── PROS/CONS GRID ── */
+  .eval-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin: 1.5rem 0;
+  }
+
+  @media (max-width: 640px) {
+    .eval-grid { grid-template-columns: 1fr; }
+  }
+
+  .eval-card {
+    padding: 1.5rem;
+    border-radius: 4px;
+    border: 1px solid;
+  }
+
+  .eval-card.pros {
+    background: rgba(58,125,68,0.05);
+    border-color: rgba(58,125,68,0.2);
+  }
+
+  .eval-card.cons {
+    background: rgba(155,45,48,0.05);
+    border-color: rgba(155,45,48,0.2);
+  }
+
+  .eval-card h4 {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.65rem;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 0.8rem;
+  }
+
+  .eval-card.pros h4 { color: var(--green-ok); }
+  .eval-card.cons h4 { color: var(--red-warn); }
+
+  .eval-card ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .eval-card li {
+    padding: 0.3em 0;
+    padding-left: 1.3em;
+    position: relative;
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+
+  .eval-card.pros li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--green-ok);
+    font-weight: 600;
+  }
+
+  .eval-card.cons li::before {
+    content: '✗';
+    position: absolute;
+    left: 0;
+    color: var(--red-warn);
+    font-weight: 600;
+  }
+
+  /* ── CALLOUT BOXES ── */
+  .callout {
+    border-left: 3px solid var(--gold);
+    background: rgba(196,153,59,0.06);
+    padding: 1.2rem 1.5rem;
+    margin: 1.5rem 0;
+    border-radius: 0 4px 4px 0;
+  }
+
+  .callout.warning {
+    border-left-color: var(--red-warn);
+    background: rgba(155,45,48,0.05);
+  }
+
+  .callout.tip {
+    border-left-color: var(--green-ok);
+    background: rgba(58,125,68,0.05);
+  }
+
+  .callout-title {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.65rem;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.4rem;
+  }
+
+  .callout.warning .callout-title { color: var(--red-warn); }
+  .callout.tip .callout-title { color: var(--green-ok); }
+
+  .callout p { margin-bottom: 0.4rem; font-size: 0.95rem; }
+  .callout p:last-child { margin-bottom: 0; }
+
+  /* ── PRIORITY RANKING ── */
+  .ranking {
+    counter-reset: rank;
+    margin: 2rem 0;
+  }
+
+  .rank-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.2rem;
+    padding: 1.2rem 0;
+    border-bottom: 1px solid rgba(107,66,38,0.1);
+    counter-increment: rank;
+  }
+
+  .rank-num {
+    font-family: 'DM Serif Display', serif;
+    font-size: 2.2rem;
+    color: var(--gold);
+    line-height: 1;
+    min-width: 2.5rem;
+    text-align: center;
+  }
+
+  .rank-item:first-child .rank-num { color: var(--brown); font-size: 2.8rem; }
+
+  .rank-body h4 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.15rem;
+    font-weight: 400;
+    margin-bottom: 0.2rem;
+  }
+
+  .rank-body p {
+    font-size: 0.92rem;
+    color: var(--brown-light);
+    margin-bottom: 0;
+  }
+
+  .rank-badge {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.55rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 0.2em 0.6em;
+    border-radius: 2px;
+    display: inline-block;
+    margin-left: 0.5rem;
+    vertical-align: middle;
+  }
+
+  .rank-badge.primary { background: var(--brown); color: var(--cream); }
+  .rank-badge.verify { background: var(--blue-print); color: white; }
+  .rank-badge.backup { background: rgba(107,66,38,0.15); color: var(--brown); }
+
+  /* ── MEASUREMENT TABLE ── */
+  .spec-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+    font-size: 0.92rem;
+  }
+
+  .spec-table th {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.65rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-align: left;
+    padding: 0.8rem 1rem;
+    border-bottom: 2px solid var(--ink);
+    color: var(--brown-light);
+  }
+
+  .spec-table td {
+    padding: 0.7rem 1rem;
+    border-bottom: 1px solid rgba(107,66,38,0.1);
+    vertical-align: top;
+  }
+
+  .spec-table code {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.85rem;
+    background: rgba(43,74,111,0.08);
+    padding: 0.1em 0.4em;
+    border-radius: 2px;
+    color: var(--blue-print);
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    text-align: center;
+    padding: 4rem 2rem;
+    border-top: 1px solid rgba(107,66,38,0.12);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--brown-light);
+    letter-spacing: 0.1em;
+  }
+  footer a { color: #8B6914; text-decoration: none; }
+  footer a:hover { text-decoration: underline; }
+
+  /* ── LIGHTBOX ── */
+  .lightbox-overlay {
+    position: fixed; inset: 0; z-index: 10000;
+    background: rgba(8,12,20,0.95);
+    backdrop-filter: blur(8px);
+    display: none; flex-direction: column;
+    align-items: center; justify-content: center;
+    cursor: grab; touch-action: none;
+  }
+  .lightbox-overlay.active { display: flex; animation: lbFade 0.25s ease-out; }
+  .lightbox-overlay:active { cursor: grabbing; }
+  @keyframes lbFade { from { opacity:0 } to { opacity:1 } }
+
+  .lightbox-container {
+    position: relative; width: 100%; height: 100%;
+    overflow: hidden; display: flex;
+    align-items: center; justify-content: center;
+  }
+  .lightbox-content {
+    transform-origin: center center;
+    transition: transform 0.1s ease-out;
+    width: 92vw;
+    will-change: transform;
+  }
+  .lightbox-content svg {
+    width: 100%; height: auto;
+  }
+  .lightbox-close {
+    position: absolute; top: 1.2rem; right: 1.5rem; z-index: 10001;
+    width: 44px; height: 44px; border-radius: 50%;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    color: rgba(255,255,255,0.7);
+    font-size: 1.4rem; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s; font-family: system-ui; line-height: 1;
+  }
+  .lightbox-close:hover { background: rgba(255,255,255,0.15); color: white; }
+
+  .lightbox-toolbar {
+    position: absolute; bottom: 1.5rem; left: 50%;
+    transform: translateX(-50%); z-index: 10001;
+    display: flex; gap: 0.5rem;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    padding: 0.4rem; border-radius: 8px;
+    backdrop-filter: blur(8px);
+  }
+  .lightbox-toolbar button {
+    width: 40px; height: 36px; border-radius: 4px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    color: rgba(255,255,255,0.7);
+    font-size: 1rem; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.15s; font-family: system-ui;
+  }
+  .lightbox-toolbar button:hover { background: rgba(255,255,255,0.12); color: white; }
+  .lightbox-zoom-level {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.65rem; color: rgba(255,255,255,0.4);
+    display: flex; align-items: center;
+    padding: 0 0.5rem; min-width: 3.5rem; justify-content: center;
+  }
+  .lightbox-caption {
+    position: absolute; top: 1.2rem; left: 1.5rem; z-index: 10001;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.7rem; letter-spacing: 0.1em;
+    color: rgba(255,255,255,0.5); text-transform: uppercase;
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes bounce {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(6px); }
+  }
+
+  .fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  }
+
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 640px) {
+    section { padding: 3rem 1.2rem; }
+    .blueprint { padding: 1.2rem; }
+    .hero-spec { gap: 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════ HERO ═══════════════════════════ -->
+<div class="hero">
+  <div class="hero-badge">Luthier's Technical Reference</div>
+  <div style="font-family:'DM Serif Display',Georgia,serif; font-size:1.35rem; letter-spacing:0.04em; color:#8B6914; margin:0.6rem 0 0.2rem;">Six Sides Guitar Co.</div>
+  <h1>Locating the <em>Bridge</em> on a D-28 Style Guitar</h1>
+  <p class="hero-sub">Five techniques for precision bridge placement on a bolt-on neck dreadnought build, ranked by reliability.</p>
+
+  <div class="hero-spec">
+    <div>
+      <div class="val">25.400″</div>
+      <div class="label">Scale Length</div>
+    </div>
+    <div>
+      <div class="val">12.700″</div>
+      <div class="label">Nut → 12th Fret</div>
+    </div>
+    <div>
+      <div class="val">14</div>
+      <div class="label">Frets to Body</div>
+    </div>
+    <div>
+      <div class="val">~7.6″</div>
+      <div class="label">14th Fret → Saddle</div>
+    </div>
+  </div>
+
+  <!-- Hero guitar outline drawing -->
+  <div class="hero-drawing">
+    <svg viewBox="0 0 780 330" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <marker id="arr" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+          <path d="M 0 0 L 10 5 L 0 10" fill="none" stroke="#C4993B" stroke-width="1.5"/>
+        </marker>
+        <marker id="arr2" viewBox="0 0 10 10" refX="0" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+          <path d="M 10 0 L 0 5 L 10 10" fill="none" stroke="#C4993B" stroke-width="1.5"/>
+        </marker>
+      </defs>
+
+      <!-- Centerline y=155 -->
+
+      <!-- ══ HEADSTOCK ══ -->
+      <path d="M 80 130 L 22 127 C 14 127, 8 133, 8 141
+               L 8 169 C 8 177, 14 183, 22 183 L 80 180"
+            fill="none" stroke="#6B4226" stroke-width="1.4"/>
+      <!-- Tuners treble -->
+      <line x1="32" y1="127" x2="32" y2="114" stroke="#6B4226" stroke-width="0.9" opacity="0.55"/>
+      <line x1="50" y1="126" x2="50" y2="113" stroke="#6B4226" stroke-width="0.9" opacity="0.55"/>
+      <line x1="68" y1="126" x2="68" y2="112" stroke="#6B4226" stroke-width="0.9" opacity="0.55"/>
+      <ellipse cx="32" cy="111" rx="5.5" ry="2.8" fill="none" stroke="#6B4226" stroke-width="0.7" opacity="0.4"/>
+      <ellipse cx="50" cy="110" rx="5.5" ry="2.8" fill="none" stroke="#6B4226" stroke-width="0.7" opacity="0.4"/>
+      <ellipse cx="68" cy="109" rx="5.5" ry="2.8" fill="none" stroke="#6B4226" stroke-width="0.7" opacity="0.4"/>
+      <!-- Tuners bass -->
+      <line x1="32" y1="183" x2="32" y2="196" stroke="#6B4226" stroke-width="0.9" opacity="0.55"/>
+      <line x1="50" y1="184" x2="50" y2="197" stroke="#6B4226" stroke-width="0.9" opacity="0.55"/>
+      <line x1="68" y1="184" x2="68" y2="198" stroke="#6B4226" stroke-width="0.9" opacity="0.55"/>
+      <ellipse cx="32" cy="199" rx="5.5" ry="2.8" fill="none" stroke="#6B4226" stroke-width="0.7" opacity="0.4"/>
+      <ellipse cx="50" cy="200" rx="5.5" ry="2.8" fill="none" stroke="#6B4226" stroke-width="0.7" opacity="0.4"/>
+      <ellipse cx="68" cy="201" rx="5.5" ry="2.8" fill="none" stroke="#6B4226" stroke-width="0.7" opacity="0.4"/>
+
+      <!-- ══ NUT ══ -->
+      <rect x="82" y="128" width="4" height="54" rx="1" fill="#6B4226"/>
+      <text x="86" y="120" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="9" fill="#6B4226" font-weight="600">NUT</text>
+
+      <!-- ══ FRETBOARD edges (tapers nut → body) ══ -->
+      <line x1="86" y1="128" x2="390" y2="112" stroke="#6B4226" stroke-width="1.3"/>
+      <line x1="86" y1="182" x2="390" y2="198" stroke="#6B4226" stroke-width="1.3"/>
+
+      <!-- Frets 1-11 -->
+      <line x1="112" y1="127" x2="112" y2="183" stroke="#6B4226" stroke-width="0.4" opacity="0.3"/>
+      <line x1="139" y1="127" x2="139" y2="183" stroke="#6B4226" stroke-width="0.4" opacity="0.3"/>
+      <line x1="164" y1="126" x2="164" y2="184" stroke="#6B4226" stroke-width="0.4" opacity="0.3"/>
+      <line x1="187" y1="125" x2="187" y2="185" stroke="#6B4226" stroke-width="0.4" opacity="0.3"/>
+      <line x1="208" y1="124" x2="208" y2="186" stroke="#6B4226" stroke-width="0.4" opacity="0.3"/>
+      <line x1="228" y1="123" x2="228" y2="187" stroke="#6B4226" stroke-width="0.4" opacity="0.3"/>
+      <line x1="246" y1="122" x2="246" y2="188" stroke="#6B4226" stroke-width="0.4" opacity="0.3"/>
+      <line x1="262" y1="121.5" x2="262" y2="188.5" stroke="#6B4226" stroke-width="0.4" opacity="0.3"/>
+      <line x1="277" y1="121" x2="277" y2="189" stroke="#6B4226" stroke-width="0.4" opacity="0.3"/>
+      <line x1="291" y1="120" x2="291" y2="190" stroke="#6B4226" stroke-width="0.4" opacity="0.3"/>
+      <line x1="304" y1="119.5" x2="304" y2="190.5" stroke="#6B4226" stroke-width="0.4" opacity="0.3"/>
+      <!-- 12th fret double -->
+      <line x1="311" y1="116" x2="311" y2="194" stroke="#A0522D" stroke-width="1.5"/>
+      <line x1="315" y1="116" x2="315" y2="194" stroke="#A0522D" stroke-width="1.5"/>
+      <text x="313" y="108" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="9" fill="#A0522D" font-weight="600">12th FRET</text>
+      <!-- Fret dots -->
+      <circle cx="152" cy="155" r="2.5" fill="#6B4226" opacity="0.2"/>
+      <circle cx="198" cy="155" r="2.5" fill="#6B4226" opacity="0.2"/>
+      <circle cx="237" cy="155" r="2.5" fill="#6B4226" opacity="0.2"/>
+      <circle cx="270" cy="155" r="2.5" fill="#6B4226" opacity="0.2"/>
+      <circle cx="313" cy="145" r="2" fill="#A0522D" opacity="0.25"/>
+      <circle cx="313" cy="165" r="2" fill="#A0522D" opacity="0.25"/>
+      <!-- Upper frets on body -->
+      <line x1="330" y1="118" x2="330" y2="192" stroke="#6B4226" stroke-width="0.4" opacity="0.2"/>
+      <line x1="344" y1="117" x2="344" y2="193" stroke="#6B4226" stroke-width="0.4" opacity="0.18"/>
+      <line x1="357" y1="116.5" x2="357" y2="193.5" stroke="#6B4226" stroke-width="0.4" opacity="0.15"/>
+      <line x1="369" y1="116" x2="369" y2="194" stroke="#6B4226" stroke-width="0.4" opacity="0.12"/>
+      <line x1="380" y1="115" x2="380" y2="195" stroke="#6B4226" stroke-width="0.4" opacity="0.1"/>
+
+      <!-- ══ BODY — D-28 Dreadnought (computed Catmull-Rom spline) ══ -->
+      <path d="M 390,112 C 392.3,105.5 396.1,103.9 400,100 C 404.3,95.6 409.4,90.8 415,87 C 421.0,83.0 428.2,79.3 435,77 C 441.5,74.8 448.3,73.3 455,73 C 461.6,72.7 468.4,74.0 475,75 C 481.7,76.0 488.8,78.0 495,79 C 500.3,79.9 505.0,80.5 510,81 C 515.0,81.5 520.0,82.2 525,82 C 530.0,81.8 535.1,81.1 540,80 C 545.1,78.8 549.8,77.4 555,75 C 561.3,72.1 568.3,66.7 575,63 C 581.6,59.4 588.2,55.5 595,53 C 601.5,50.6 608.3,48.0 615,48 C 621.7,48.0 629.1,50.1 635,53 C 640.7,55.8 645.6,60.2 650,65 C 654.7,70.1 658.5,76.2 662,83 C 666.0,90.7 669.3,100.1 672,109 C 674.7,118.1 676.2,128.7 678,137 C 679.5,143.7 682.0,149.0 682,155 C 682.0,161.0 679.5,166.3 678,173 C 676.2,181.3 674.7,191.9 672,201 C 669.3,209.9 666.0,219.3 662,227 C 658.5,233.8 654.7,239.9 650,245 C 645.6,249.8 640.7,254.2 635,257 C 629.1,259.9 621.7,262.0 615,262 C 608.3,262.0 601.5,259.4 595,257 C 588.2,254.5 581.6,250.6 575,247 C 568.3,243.3 561.3,237.9 555,235 C 549.8,232.6 545.1,231.2 540,230 C 535.1,228.9 530.0,228.2 525,228 C 520.0,227.8 515.0,228.5 510,229 C 505.0,229.5 500.3,230.1 495,231 C 488.8,232.0 481.7,234.0 475,235 C 468.4,236.0 461.6,237.3 455,237 C 448.3,236.7 441.5,235.2 435,233 C 428.2,230.7 421.0,227.0 415,223 C 409.4,219.2 404.3,214.4 400,210 C 396.1,206.1 392.3,204.5 390,198 Z"
+            fill="none" stroke="#6B4226" stroke-width="1.7"/>
+
+      <!-- ══ SOUND HOLE ══ -->
+      <circle cx="488" cy="155" r="38" fill="none" stroke="#6B4226" stroke-width="1.3"/>
+      <circle cx="488" cy="155" r="42" fill="none" stroke="#6B4226" stroke-width="0.4" opacity="0.2"/>
+      <circle cx="488" cy="155" r="34" fill="none" stroke="#6B4226" stroke-width="0.4" opacity="0.2"/>
+
+      <!-- ══ PICKGUARD ══ -->
+      <path d="M 460 168 C 454 178, 448 204, 460 224 C 468 236, 500 240, 512 228 C 522 218, 516 190, 506 174 C 500 166, 474 162, 460 168 Z"
+            fill="none" stroke="#6B4226" stroke-width="0.7" opacity="0.2" stroke-dasharray="3,2"/>
+
+      <!-- ══ BRIDGE ══ -->
+      <rect x="554" y="142" width="64" height="26" rx="5" fill="none" stroke="#C4993B" stroke-width="2.5"/>
+      <!-- Saddle -->
+      <line x1="567" y1="143" x2="567" y2="167" stroke="#C4993B" stroke-width="2.5"/>
+      <!-- Bridge pins -->
+      <circle cx="579" cy="155" r="2.5" fill="#C4993B"/>
+      <circle cx="587" cy="155" r="2.5" fill="#C4993B"/>
+      <circle cx="595" cy="155" r="2.5" fill="#C4993B"/>
+      <circle cx="603" cy="155" r="2.5" fill="#C4993B"/>
+      <circle cx="611" cy="155" r="2.5" fill="#C4993B"/>
+      <text x="586" y="135" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" fill="#C4993B" font-weight="600">BRIDGE / SADDLE</text>
+
+      <!-- ══ STRINGS ══ -->
+      <line x1="86" y1="134" x2="567" y2="146" stroke="#6B4226" stroke-width="0.3" opacity="0.25"/>
+      <line x1="86" y1="143" x2="567" y2="149" stroke="#6B4226" stroke-width="0.35" opacity="0.25"/>
+      <line x1="86" y1="151" x2="567" y2="153" stroke="#6B4226" stroke-width="0.4" opacity="0.25"/>
+      <line x1="86" y1="160" x2="567" y2="157" stroke="#6B4226" stroke-width="0.45" opacity="0.25"/>
+      <line x1="86" y1="168" x2="567" y2="161" stroke="#6B4226" stroke-width="0.5" opacity="0.25"/>
+      <line x1="86" y1="176" x2="567" y2="165" stroke="#6B4226" stroke-width="0.6" opacity="0.25"/>
+
+      <!-- ══ DIMENSION LINES ══ -->
+      <line x1="86" y1="298" x2="567" y2="298" stroke="#C4993B" stroke-width="0.8" marker-start="url(#arr2)" marker-end="url(#arr)"/>
+      <text x="326" y="316" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" fill="#C4993B" font-weight="600">25.400″  SCALE LENGTH  (NUT → SADDLE)</text>
+
+      <line x1="86" y1="282" x2="313" y2="282" stroke="#A0522D" stroke-width="0.6" marker-start="url(#arr2)" marker-end="url(#arr)" opacity="0.7"/>
+      <text x="199" y="278" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="8" fill="#A0522D">12.700″ (½ SCALE)</text>
+
+      <!-- End pin -->
+      <circle cx="682" cy="155" r="3" fill="#6B4226" opacity="0.35"/>
+    </svg>
+  </div>
+
+  <div class="scroll-hint">
+    <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+  </div>
+</div>
+
+<!-- ═══════════════════════════ NAV ═══════════════════════════ -->
+<nav class="toc">
+  <a href="#t1">① Direct Measurement</a>
+  <a href="#t2">② 12th Fret Doubling</a>
+  <a href="#t3">③ Taut String</a>
+  <a href="#t4">④ Template / Fixture</a>
+  <a href="#t5">⑤ CAD Verification</a>
+  <a href="#ranking">Ranking</a>
+  <a href="#final">Final Word</a>
+</nav>
+
+<!-- ═══════════════════════════ KEY MEASUREMENTS ═══════════════════════════ -->
+<section class="fade-in">
+  <div class="section-number">Reference Data</div>
+  <h2>Critical <em>Dimensions</em></h2>
+  <p class="section-lead">Know these numbers cold before you pick up a ruler.</p>
+
+  <table class="spec-table">
+    <thead>
+      <tr>
+        <th>Measurement</th>
+        <th>Value</th>
+        <th>Notes</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Scale length (nut → saddle)</td>
+        <td><code>25.400″</code></td>
+        <td>Measured to saddle crown contact point</td>
+      </tr>
+      <tr>
+        <td>Nut → 12th fret crown</td>
+        <td><code>12.700″</code></td>
+        <td>Exact half of scale length</td>
+      </tr>
+      <tr>
+        <td>14th fret → saddle (nominal)</td>
+        <td><code>≈ 7.600″</code></td>
+        <td>Verify against your fret spacing</td>
+      </tr>
+      <tr>
+        <td>Bridge width (front to back)</td>
+        <td><code>≈ 1  9⁄16″</code></td>
+        <td>Martin standard rectangular bridge</td>
+      </tr>
+      <tr>
+        <td>Saddle slot from rear edge</td>
+        <td><code>3⁄8″ – 7⁄16″</code></td>
+        <td>Bridge front edge ≈ 1 3⁄16″ before saddle</td>
+      </tr>
+      <tr>
+        <td>Treble compensation</td>
+        <td><code>≈ −1⁄32″</code></td>
+        <td>Saddle closer to nut on high-E side</td>
+      </tr>
+      <tr>
+        <td>Bass compensation</td>
+        <td><code>≈ +3⁄32″</code></td>
+        <td>Saddle farther from nut on low-E side</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout">
+    <div class="callout-title">Bolt-On Advantage</div>
+    <p>With a bolt-on neck, you can dry-fit the neck, take all measurements, remove it, adjust, and repeat — without any consequences. This is your superpower. Use it liberally.</p>
+  </div>
+</section>
+
+<!-- ═══════════════════════════ TECHNIQUE 1 ═══════════════════════════ -->
+<section id="t1" class="fade-in">
+  <div class="section-number">Technique 01</div>
+  <h2>Direct Measurement <em>from the Nut</em></h2>
+  <p class="section-lead">The most intuitive approach — measure the full scale length directly from nut to saddle point.</p>
+
+  <p>Bolt the neck in dry. Using a rigid straightedge or steel rule, measure <strong>25.400″</strong> from the front face of the nut (playing side, where strings break) down the centerline, extending over the top to the body. That measurement lands at the theoretical saddle contact point.</p>
+
+  <p>From there, offset to find the bridge front edge: the saddle slot sits roughly 3/8″ to 7/16″ from the rear bridge edge, so the front edge falls about 1-3/16″ ahead of your saddle mark.</p>
+
+  <div class="blueprint">
+    <svg viewBox="0 0 700 180" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <marker id="ba1" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="5" markerHeight="5" orient="auto">
+          <path d="M0 0L10 5L0 10" fill="none" stroke="#7CB4E8" stroke-width="1.5"/>
+        </marker>
+        <marker id="ba2" viewBox="0 0 10 10" refX="0" refY="5" markerWidth="5" markerHeight="5" orient="auto">
+          <path d="M10 0L0 5L10 10" fill="none" stroke="#7CB4E8" stroke-width="1.5"/>
+        </marker>
+      </defs>
+
+      <!-- Nut -->
+      <rect x="40" y="50" width="5" height="60" rx="1" fill="#7CB4E8" opacity="0.3" stroke="#7CB4E8" stroke-width="1"/>
+      <text x="42" y="40" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="9" fill="#7CB4E8">NUT FACE</text>
+
+      <!-- Straightedge -->
+      <rect x="40" y="76" width="580" height="8" rx="1" fill="none" stroke="#FFFFFF" stroke-width="0.5" stroke-dasharray="4,3" opacity="0.3"/>
+      <text x="330" y="73" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="7" fill="rgba(255,255,255,0.4)">STEEL STRAIGHTEDGE</text>
+
+      <!-- Scale length dimension -->
+      <line x1="42" y1="130" x2="600" y2="130" stroke="#7CB4E8" stroke-width="0.8" marker-start="url(#ba2)" marker-end="url(#ba1)"/>
+      <text x="321" y="145" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" fill="#7CB4E8" font-weight="500">25.400″</text>
+
+      <!-- Saddle point -->
+      <line x1="600" y1="45" x2="600" y2="120" stroke="#FFD700" stroke-width="1.5" stroke-dasharray="3,3"/>
+      <text x="600" y="38" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="9" fill="#FFD700">SADDLE</text>
+
+      <!-- Bridge outline -->
+      <rect x="545" y="62" width="70" height="36" rx="3" fill="none" stroke="#FFD700" stroke-width="1.2"/>
+      <text x="580" y="58" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="7" fill="rgba(255,255,255,0.5)">BRIDGE</text>
+
+      <!-- Bridge front edge dimension -->
+      <line x1="545" y1="155" x2="600" y2="155" stroke="#FFD700" stroke-width="0.6" marker-start="url(#ba2)" marker-end="url(#ba1)"/>
+      <text x="572" y="168" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="7" fill="#FFD700">≈1 3⁄16″</text>
+
+      <!-- Measurement point indicator -->
+      <circle cx="42" cy="80" r="4" fill="#7CB4E8" opacity="0.6"/>
+      <text x="55" y="84" font-family="IBM Plex Mono, monospace" font-size="7" fill="rgba(255,255,255,0.6)">MEASURE FROM HERE</text>
+
+      <circle cx="600" cy="80" r="4" fill="#FFD700" opacity="0.6"/>
+      <text x="645" y="84" font-family="IBM Plex Mono, monospace" font-size="7" fill="rgba(255,255,255,0.6)">TO HERE</text>
+    </svg>
+    <div class="blueprint-label">Fig. 1 — Direct nut-to-saddle measurement, top view</div>
+  </div>
+
+  <div class="eval-grid">
+    <div class="eval-card pros">
+      <h4>Advantages</h4>
+      <ul>
+        <li>Most intuitive — you're measuring exactly what defines the scale</li>
+        <li>Easy to understand and explain</li>
+        <li>Bolt-on lets you remove and re-check freely</li>
+      </ul>
+    </div>
+    <div class="eval-card cons">
+      <h4>Drawbacks</h4>
+      <ul>
+        <li>Long measurement across a curved surface invites cumulative error</li>
+        <li>Straightedge flex, lift, or shift of 1/32″ throws it off</li>
+        <li>Requires correct neck angle before measurement is valid</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="callout warning">
+    <div class="callout-title">Stumbling Block</div>
+    <p><strong>Measuring to the wrong part of the nut.</strong> It's the front face (playing side) — not the center, not the back. Also: don't forget saddle compensation. The bass side moves back ~3/32″ and treble side forward ~1/32″ from nominal.</p>
+  </div>
+
+  <div class="callout tip">
+    <div class="callout-title">Foolproofing</div>
+    <p>Use a rigid aluminum or steel bar (≥30″), never a tape measure. Take the measurement on both the treble and bass sides of centerline independently, then split the difference. Mark with a fine awl point, not a pencil.</p>
+  </div>
+</section>
+
+<!-- ═══════════════════════════ TECHNIQUE 2 ═══════════════════════════ -->
+<section id="t2" class="fade-in">
+  <div class="section-number">Technique 02 — Recommended Primary</div>
+  <h2>12th Fret <em>Doubling</em> Method</h2>
+  <p class="section-lead">The most reliable approach. Halve the measurement, halve the error.</p>
+
+  <p>The 12th fret is the exact midpoint of the scale. Measure from the front face of the nut to the <strong>crown</strong> of the 12th fret — this should be 12.700″. Then measure that same 12.700″ from the 12th fret crown toward the bridge location. The second measurement lands at the saddle compensation point.</p>
+
+  <p>The key insight: a 12.7″ measurement is far more controllable than a 25.4″ one. You've halved the distance and therefore halved the opportunity for error.</p>
+
+  <div class="blueprint">
+    <svg viewBox="0 0 700 200" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <marker id="bb1" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="5" markerHeight="5" orient="auto">
+          <path d="M0 0L10 5L0 10" fill="none" stroke="#7CB4E8" stroke-width="1.5"/>
+        </marker>
+        <marker id="bb2" viewBox="0 0 10 10" refX="0" refY="5" markerWidth="5" markerHeight="5" orient="auto">
+          <path d="M10 0L0 5L10 10" fill="none" stroke="#7CB4E8" stroke-width="1.5"/>
+        </marker>
+        <marker id="bg1" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="5" markerHeight="5" orient="auto">
+          <path d="M0 0L10 5L0 10" fill="none" stroke="#4ADE80" stroke-width="1.5"/>
+        </marker>
+        <marker id="bg2" viewBox="0 0 10 10" refX="0" refY="5" markerWidth="5" markerHeight="5" orient="auto">
+          <path d="M10 0L0 5L10 10" fill="none" stroke="#4ADE80" stroke-width="1.5"/>
+        </marker>
+      </defs>
+
+      <!-- Nut -->
+      <rect x="50" y="55" width="5" height="50" rx="1" fill="#7CB4E8" opacity="0.3" stroke="#7CB4E8" stroke-width="1"/>
+      <text x="52" y="45" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="8" fill="#7CB4E8">NUT</text>
+
+      <!-- 12th fret -->
+      <line x1="330" y1="50" x2="330" y2="110" stroke="#FF6B6B" stroke-width="2"/>
+      <text x="330" y="42" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="9" fill="#FF6B6B" font-weight="500">12th FRET</text>
+
+      <!-- Saddle -->
+      <line x1="610" y1="50" x2="610" y2="110" stroke="#FFD700" stroke-width="2" stroke-dasharray="3,3"/>
+      <text x="610" y="42" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="9" fill="#FFD700">SADDLE</text>
+
+      <!-- First half dimension -->
+      <line x1="52" y1="130" x2="330" y2="130" stroke="#7CB4E8" stroke-width="1" marker-start="url(#bb2)" marker-end="url(#bb1)"/>
+      <text x="191" y="145" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" fill="#7CB4E8" font-weight="500">12.700″</text>
+      <text x="191" y="156" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="7" fill="rgba(124,180,232,0.6)">MEASURE &amp; VERIFY</text>
+
+      <!-- Second half dimension -->
+      <line x1="330" y1="130" x2="610" y2="130" stroke="#4ADE80" stroke-width="1" marker-start="url(#bg2)" marker-end="url(#bg1)"/>
+      <text x="470" y="145" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" fill="#4ADE80" font-weight="500">12.700″</text>
+      <text x="470" y="156" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="7" fill="rgba(74,222,128,0.6)">DUPLICATE TO FIND SADDLE</text>
+
+      <!-- Checkmark at 12th fret -->
+      <circle cx="330" cy="80" r="12" fill="none" stroke="#FF6B6B" stroke-width="1" opacity="0.4"/>
+      <text x="330" y="84" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" fill="#FF6B6B">✓</text>
+
+      <!-- "Equal" annotation -->
+      <text x="330" y="180" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="8" fill="rgba(255,255,255,0.5)">THESE TWO MEASUREMENTS MUST BE IDENTICAL</text>
+
+      <!-- Fret crown detail callout -->
+      <rect x="280" y="60" width="8" height="4" rx="1" fill="#FF6B6B" opacity="0.5"/>
+      <line x1="290" y1="62" x2="310" y2="55" stroke="rgba(255,255,255,0.3)" stroke-width="0.5"/>
+      <text x="354" y="70" font-family="IBM Plex Mono, monospace" font-size="6" fill="rgba(255,255,255,0.4)">↑ FRET CROWN, NOT SLOT</text>
+    </svg>
+    <div class="blueprint-label">Fig. 2 — 12th fret doubling method: measure half, duplicate to the body</div>
+  </div>
+
+  <div class="eval-grid">
+    <div class="eval-card pros">
+      <h4>Advantages</h4>
+      <ul>
+        <li>Half the measurement distance = dramatically less cumulative error</li>
+        <li>12th fret acts as a built-in verification point</li>
+        <li>Self-checking: if nut-to-12th ≠ 12.700″, you catch the problem before it reaches the bridge</li>
+      </ul>
+    </div>
+    <div class="eval-card cons">
+      <h4>Drawbacks</h4>
+      <ul>
+        <li>Entirely dependent on fret slot accuracy — if slots are off, you double the error</li>
+        <li>Still needs a good straightedge to project the line from 12th fret to the top</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="callout warning">
+    <div class="callout-title">Stumbling Block</div>
+    <p><strong>Measuring to the fret slot instead of the fret crown.</strong> A medium fret crown sits ~0.010–0.015″ forward of the slot center. Small, but it matters. Also: your straightedge must follow the <em>string path</em> (accounting for neck angle), not just lie flat.</p>
+  </div>
+
+  <div class="callout tip">
+    <div class="callout-title">Foolproofing</div>
+    <p>Use a <strong>taut monofilament line</strong> instead of a straightedge — string it from the nut slot, over the 12th fret, and let it extend to the body. It naturally follows the string path and accounts for neck angle. Verify the nut-to-12th measurement first: if it's not 12.700″ ± 0.005″, stop and diagnose before proceeding.</p>
+  </div>
+</section>
+
+<!-- ═══════════════════════════ TECHNIQUE 3 ═══════════════════════════ -->
+<section id="t3" class="fade-in">
+  <div class="section-number">Technique 03 — Best Physical Verification</div>
+  <h2>Taut String / <em>Dummy String</em> Method</h2>
+  <p class="section-lead">Simulate the actual instrument. No guessing about neck angle or string path.</p>
+
+  <p>Bolt the neck on. Run two taut monofilament lines (or high-E steel strings) from the nut E-string slots, over the frets, and down to the lower bout. Clamp them taut at the tail end. Now measure directly along each string from the nut to 25.4″ (plus compensation offsets for each side). Mark both points on the top.</p>
+
+  <div class="blueprint">
+    <svg viewBox="0 0 700 220" xmlns="http://www.w3.org/2000/svg">
+      <!-- Guitar simplified side profile -->
+      <!-- Neck angle illustration -->
+      <text x="350" y="20" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="9" fill="rgba(255,255,255,0.5)" font-weight="500">SIDE VIEW — STRING PATH FOLLOWS NECK ANGLE</text>
+
+      <!-- Neck block -->
+      <rect x="60" y="80" width="250" height="12" rx="1" fill="none" stroke="rgba(255,255,255,0.25)" stroke-width="1"/>
+      <text x="185" y="77" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="7" fill="rgba(255,255,255,0.3)">NECK</text>
+
+      <!-- Body profile (side view) -->
+      <path d="M 310 86 L 310 120 C 310 140, 350 150, 500 150 C 600 150, 640 145, 650 130 L 650 86"
+            fill="none" stroke="rgba(255,255,255,0.25)" stroke-width="1"/>
+      <text x="480" y="145" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="7" fill="rgba(255,255,255,0.2)">BODY</text>
+
+      <!-- Nut -->
+      <rect x="58" y="76" width="4" height="20" rx="1" fill="#7CB4E8" opacity="0.5"/>
+
+      <!-- String (taut line) — the key element -->
+      <line x1="60" y1="82" x2="560" y2="88" stroke="#4ADE80" stroke-width="1.5"/>
+      <line x1="60" y1="90" x2="560" y2="96" stroke="#4ADE80" stroke-width="1.5" opacity="0.5"/>
+
+      <!-- Annotations on the string -->
+      <text x="60" y="70" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="7" fill="#4ADE80">TAUT .010″ WIRE</text>
+
+      <!-- Saddle point on body -->
+      <circle cx="560" cy="88" r="4" fill="#FFD700" opacity="0.6"/>
+      <circle cx="560" cy="96" r="4" fill="#FFD700" opacity="0.4"/>
+      <text x="560" y="75" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="8" fill="#FFD700">SADDLE POINT</text>
+
+      <!-- Top view - string alignment check -->
+      <text x="350" y="180" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="9" fill="rgba(255,255,255,0.5)" font-weight="500">TOP VIEW — REVEALS LATERAL ALIGNMENT</text>
+
+      <!-- Simplified top view -->
+      <line x1="100" y1="195" x2="600" y2="193" stroke="#4ADE80" stroke-width="1"/>
+      <line x1="100" y1="205" x2="600" y2="207" stroke="#4ADE80" stroke-width="1"/>
+
+      <!-- Centerline -->
+      <line x1="100" y1="200" x2="600" y2="200" stroke="rgba(255,255,255,0.15)" stroke-width="0.5" stroke-dasharray="4,4"/>
+      <text x="350" y="215" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="6" fill="rgba(255,255,255,0.3)">CENTERLINE</text>
+
+      <!-- Bridge position marks -->
+      <circle cx="560" cy="193" r="3" fill="#FFD700" opacity="0.6"/>
+      <circle cx="564" cy="207" r="3" fill="#FFD700" opacity="0.6"/>
+      <text x="580" y="202" font-family="IBM Plex Mono, monospace" font-size="7" fill="#FFD700">BASS OFFSET</text>
+    </svg>
+    <div class="blueprint-label">Fig. 3 — Taut string method, side and top views showing string path and alignment check</div>
+  </div>
+
+  <div class="eval-grid">
+    <div class="eval-card pros">
+      <h4>Advantages</h4>
+      <ul>
+        <li>Eliminates neck angle guesswork — the string follows the real path</li>
+        <li>Gives both bass and treble saddle endpoints, verifying saddle angle</li>
+        <li>Reveals neck alignment problems (twist, lateral offset) before you commit</li>
+      </ul>
+    </div>
+    <div class="eval-card cons">
+      <h4>Drawbacks</h4>
+      <ul>
+        <li>Fiddly to set up — strings shift easily, need high tension</li>
+        <li>If neck isn't perfectly seated during this step, the layout shifts</li>
+        <li>Harder to make a precise awl mark under a taut string</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="callout warning">
+    <div class="callout-title">Stumbling Block</div>
+    <p>Using stretchy nylon or low-tension line. You need something rigid — <strong>0.010″ steel music wire</strong> or a high-E steel string works well. Also ensure strings sit properly in the nut slots, not riding high or angled.</p>
+  </div>
+
+  <div class="callout tip">
+    <div class="callout-title">Foolproofing</div>
+    <p>Use this <strong>in combination</strong> with the 12th fret doubling method. If both agree within 1/32″, you're golden. Mark the saddle point on painter's tape, draw a fine line, then remove the strings and verify with a steel rule. Do it twice on different days — fresh eyes catch errors.</p>
+  </div>
+</section>
+
+<!-- ═══════════════════════════ TECHNIQUE 4 ═══════════════════════════ -->
+<section id="t4" class="fade-in">
+  <div class="section-number">Technique 04</div>
+  <h2>Bridge Template / <em>Fixture</em> Method</h2>
+  <p class="section-lead">Best for repeatability across multiple builds. Build the jig once, use it forever.</p>
+
+  <p>Make a rigid template (1/4″ MDF or acrylic) that indexes off a known reference — typically the neck joint face or the 14th fret position. The template has a window or pin holes marking exactly where the bridge pin holes and saddle slot go. For a D-28 with a 14-fret joint: the distance from the 14th fret to the saddle is approximately 7.6″ (verify against your fret spacing).</p>
+
+  <div class="blueprint">
+    <svg viewBox="0 0 700 200" xmlns="http://www.w3.org/2000/svg">
+      <!-- Template outline -->
+      <rect x="100" y="40" width="500" height="120" rx="4" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.3)" stroke-width="1.5" stroke-dasharray="8,4"/>
+      <text x="350" y="30" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="9" fill="rgba(255,255,255,0.5)" font-weight="500">ACRYLIC OR MDF TEMPLATE</text>
+
+      <!-- Reference edge (14th fret / neck joint) -->
+      <line x1="150" y1="40" x2="150" y2="160" stroke="#FF6B6B" stroke-width="2"/>
+      <text x="150" y="175" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="8" fill="#FF6B6B">REFERENCE EDGE</text>
+      <text x="150" y="185" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="6" fill="rgba(255,107,107,0.6)">14th FRET / JOINT FACE</text>
+
+      <!-- Bridge window cutout -->
+      <rect x="420" y="70" width="80" height="60" rx="3" fill="rgba(255,215,0,0.1)" stroke="#FFD700" stroke-width="1.5"/>
+      <text x="460" y="60" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="8" fill="#FFD700" font-weight="500">BRIDGE WINDOW</text>
+
+      <!-- Saddle line in window -->
+      <line x1="470" y1="72" x2="470" y2="128" stroke="#FFD700" stroke-width="1" stroke-dasharray="3,2"/>
+      <text x="490" y="105" font-family="IBM Plex Mono, monospace" font-size="6" fill="rgba(255,215,0,0.6)" transform="rotate(90, 490, 105)">SADDLE</text>
+
+      <!-- Pin holes -->
+      <circle cx="435" cy="95" r="3" fill="none" stroke="#FFD700" stroke-width="0.8"/>
+      <circle cx="443" cy="95" r="3" fill="none" stroke="#FFD700" stroke-width="0.8"/>
+      <circle cx="451" cy="95" r="3" fill="none" stroke="#FFD700" stroke-width="0.8"/>
+      <circle cx="459" cy="95" r="3" fill="none" stroke="#FFD700" stroke-width="0.8"/>
+      <circle cx="467" cy="95" r="3" fill="none" stroke="#FFD700" stroke-width="0.8"/>
+      <circle cx="475" cy="95" r="3" fill="none" stroke="#FFD700" stroke-width="0.8"/>
+      <text x="455" y="115" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="6" fill="rgba(255,215,0,0.5)">PIN HOLES</text>
+
+      <!-- Distance dimension -->
+      <line x1="150" y1="145" x2="470" y2="145" stroke="#7CB4E8" stroke-width="0.8"/>
+      <circle cx="150" cy="145" r="2" fill="#7CB4E8"/>
+      <circle cx="470" cy="145" r="2" fill="#7CB4E8"/>
+      <text x="310" y="155" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="9" fill="#7CB4E8" font-weight="500">≈ 7.600″ (FIXED)</text>
+
+      <!-- Registration pins -->
+      <circle cx="130" cy="70" r="4" fill="#FF6B6B" opacity="0.4"/>
+      <circle cx="130" cy="130" r="4" fill="#FF6B6B" opacity="0.4"/>
+      <text x="115" y="100" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="6" fill="rgba(255,107,107,0.5)" transform="rotate(-90, 115, 100)">LOCATING PINS</text>
+    </svg>
+    <div class="blueprint-label">Fig. 4 — Template fixture with reference edge and bridge window cutout</div>
+  </div>
+
+  <div class="eval-grid">
+    <div class="eval-card pros">
+      <h4>Advantages</h4>
+      <ul>
+        <li>Dead repeatable once built and verified — no measuring each time</li>
+        <li>Removes the human measurement variable almost entirely</li>
+        <li>Indexes off a solid physical reference, not a long free-space measurement</li>
+      </ul>
+    </div>
+    <div class="eval-card cons">
+      <h4>Drawbacks</h4>
+      <ul>
+        <li>Only works if your neck joint is cut to a consistent, precise standard</li>
+        <li>Initial template requires very careful calculation and verification</li>
+        <li>Doesn't account for slight variation in neck pocket depth between builds</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="callout warning">
+    <div class="callout-title">Stumbling Block</div>
+    <p>Trusting the template without verifying it on a known-good instrument first. <strong>Always validate a new template against a factory Martin or a verified build.</strong> Also: index off the 14th fret body joint face, not the fingerboard end — overhang varies.</p>
+  </div>
+</section>
+
+<!-- ═══════════════════════════ TECHNIQUE 5 ═══════════════════════════ -->
+<section id="t5" class="fade-in">
+  <div class="section-number">Technique 05</div>
+  <h2>CAD / <em>Full-Scale</em> Drawing Verification</h2>
+  <p class="section-lead">The pre-build sanity check. Catch math errors before they become wood errors.</p>
+
+  <p>Before any tool touches wood, lay out the entire geometry in a full-scale CAD drawing or printed plan. Mark the nut, every fret, the body joint, and the bridge/saddle position. During the build, periodically hold the actual guitar over the plan and confirm alignment.</p>
+
+  <div class="blueprint">
+    <svg viewBox="0 0 700 160" xmlns="http://www.w3.org/2000/svg">
+      <!-- Simulated plan/drawing sheet -->
+      <rect x="30" y="15" width="640" height="130" rx="2" fill="rgba(255,255,255,0.02)" stroke="rgba(255,255,255,0.2)" stroke-width="0.8"/>
+
+      <!-- Title block -->
+      <rect x="520" y="110" width="148" height="33" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="0.5"/>
+      <text x="594" y="123" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="5" fill="rgba(255,255,255,0.3)">D-28 BRIDGE LOCATION</text>
+      <text x="594" y="132" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="4" fill="rgba(255,255,255,0.2)">SCALE: 1:1 — VERIFY 12″ RULE MARK</text>
+      <text x="594" y="139" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="4" fill="rgba(255,255,255,0.2)">REV. A — CHECK BEFORE USE</text>
+
+      <!-- Guitar outline on plan -->
+      <rect x="60" y="55" width="180" height="16" rx="1" fill="none" stroke="rgba(255,255,255,0.15)" stroke-width="0.5"/>
+      <ellipse cx="370" cy="63" rx="120" ry="45" fill="none" stroke="rgba(255,255,255,0.15)" stroke-width="0.5"/>
+
+      <!-- Key reference points -->
+      <line x1="60" y1="45" x2="60" y2="85" stroke="#7CB4E8" stroke-width="0.5" stroke-dasharray="2,2"/>
+      <line x1="192" y1="45" x2="192" y2="85" stroke="#FF6B6B" stroke-width="0.5" stroke-dasharray="2,2"/>
+      <line x1="420" y1="30" x2="420" y2="100" stroke="#FFD700" stroke-width="0.8" stroke-dasharray="2,2"/>
+
+      <text x="60" y="40" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="5" fill="#7CB4E8">NUT</text>
+      <text x="192" y="40" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="5" fill="#FF6B6B">12th</text>
+      <text x="420" y="25" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="6" fill="#FFD700">SADDLE</text>
+
+      <!-- Verification ruler mark -->
+      <rect x="60" y="100" width="96" height="6" fill="none" stroke="#4ADE80" stroke-width="0.8"/>
+      <text x="108" y="117" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="6" fill="#4ADE80">← 12″ VERIFICATION RULE →</text>
+      <text x="108" y="126" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="5" fill="rgba(74,222,128,0.5)">CHECK THIS WITH STEEL RULE BEFORE USING PLAN</text>
+
+      <!-- Tick marks on ruler -->
+      <line x1="60" y1="100" x2="60" y2="106" stroke="#4ADE80" stroke-width="0.5"/>
+      <line x1="68" y1="102" x2="68" y2="106" stroke="#4ADE80" stroke-width="0.3"/>
+      <line x1="76" y1="102" x2="76" y2="106" stroke="#4ADE80" stroke-width="0.3"/>
+      <line x1="84" y1="102" x2="84" y2="106" stroke="#4ADE80" stroke-width="0.3"/>
+      <line x1="92" y1="100" x2="92" y2="106" stroke="#4ADE80" stroke-width="0.5"/>
+      <line x1="100" y1="102" x2="100" y2="106" stroke="#4ADE80" stroke-width="0.3"/>
+      <line x1="108" y1="102" x2="108" y2="106" stroke="#4ADE80" stroke-width="0.3"/>
+      <line x1="116" y1="102" x2="116" y2="106" stroke="#4ADE80" stroke-width="0.3"/>
+      <line x1="124" y1="100" x2="124" y2="106" stroke="#4ADE80" stroke-width="0.5"/>
+      <line x1="132" y1="102" x2="132" y2="106" stroke="#4ADE80" stroke-width="0.3"/>
+      <line x1="140" y1="102" x2="140" y2="106" stroke="#4ADE80" stroke-width="0.3"/>
+      <line x1="148" y1="102" x2="148" y2="106" stroke="#4ADE80" stroke-width="0.3"/>
+      <line x1="156" y1="100" x2="156" y2="106" stroke="#4ADE80" stroke-width="0.5"/>
+    </svg>
+    <div class="blueprint-label">Fig. 5 — Full-scale drawing with built-in ruler verification mark</div>
+  </div>
+
+  <div class="eval-grid">
+    <div class="eval-card pros">
+      <h4>Advantages</h4>
+      <ul>
+        <li>Catches math errors before they become wood errors</li>
+        <li>Full visual of the entire geometry at once</li>
+        <li>Useful for checking compensation angle, string spacing, and more</li>
+      </ul>
+    </div>
+    <div class="eval-card cons">
+      <h4>Drawbacks</h4>
+      <ul>
+        <li>Paper plans can stretch or shrink with humidity</li>
+        <li>Only as good as your printer/plotter accuracy</li>
+        <li>Doesn't replace physical measurement on the actual instrument</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="callout tip">
+    <div class="callout-title">Foolproofing</div>
+    <p>Print a steel-rule check mark on your plan — a known 12″ line you can verify with a steel rule. If the plan has distorted, you'll catch it immediately. Use this as a <strong>verification layer</strong>, never as a primary method.</p>
+  </div>
+</section>
+
+<!-- ═══════════════════════════ RANKING ═══════════════════════════ -->
+<section id="ranking" class="fade-in">
+  <div class="section-number">Priority</div>
+  <h2>Technique <em>Ranking</em></h2>
+  <p class="section-lead">From most to least recommended for a one-off bolt-on build.</p>
+
+  <div class="ranking">
+    <div class="rank-item">
+      <div class="rank-num">1</div>
+      <div class="rank-body">
+        <h4>12th Fret Doubling <span class="rank-badge primary">Primary Method</span></h4>
+        <p>Most error-resistant. Halved measurement distance, built-in self-check via the 12th fret reference.</p>
+      </div>
+    </div>
+    <div class="rank-item">
+      <div class="rank-num">2</div>
+      <div class="rank-body">
+        <h4>Taut String Method <span class="rank-badge verify">Verification</span></h4>
+        <p>Best physical verification. Catches neck angle issues, reveals alignment problems, gives saddle angle.</p>
+      </div>
+    </div>
+    <div class="rank-item">
+      <div class="rank-num">3</div>
+      <div class="rank-body">
+        <h4>Direct Nut Measurement <span class="rank-badge backup">Cross-Check</span></h4>
+        <p>Simple, intuitive backup. More error-prone due to long measurement distance but still valuable as a third reference.</p>
+      </div>
+    </div>
+    <div class="rank-item">
+      <div class="rank-num">4</div>
+      <div class="rank-body">
+        <h4>Bridge Template / Fixture <span class="rank-badge backup">Production</span></h4>
+        <p>Excellent once validated. Best value when building multiple instruments to the same spec.</p>
+      </div>
+    </div>
+    <div class="rank-item">
+      <div class="rank-num">5</div>
+      <div class="rank-body">
+        <h4>CAD / Full-Scale Drawing <span class="rank-badge backup">Verification Layer</span></h4>
+        <p>Pre-build and post-check verification. Catches math errors and provides a global geometry reference.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════ FINAL ═══════════════════════════ -->
+<section id="final" class="fade-in">
+  <div class="section-number">The Belt-and-Suspenders Approach</div>
+  <h2>Putting It <em>All Together</em></h2>
+
+  <p>For a one-off build, use the <strong>12th fret doubling method as primary</strong>, verify with the <strong>taut string method</strong>, and cross-check against a <strong>full-scale drawing</strong>. If all three agree within 1/32″, drill your pin holes with confidence.</p>
+
+  <div class="blueprint">
+    <svg viewBox="0 0 700 200" xmlns="http://www.w3.org/2000/svg">
+      <!-- Workflow diagram -->
+      <!-- Step 1 -->
+      <rect x="30" y="60" width="140" height="80" rx="4" fill="rgba(124,180,232,0.1)" stroke="#7CB4E8" stroke-width="1.2"/>
+      <text x="100" y="85" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="8" fill="#7CB4E8" font-weight="500">STEP 1</text>
+      <text x="100" y="100" text-anchor="middle" font-family="DM Serif Display, serif" font-size="12" fill="white">12th Fret</text>
+      <text x="100" y="115" text-anchor="middle" font-family="DM Serif Display, serif" font-size="12" fill="white">Doubling</text>
+      <text x="100" y="132" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="6" fill="rgba(255,255,255,0.4)">PRIMARY</text>
+
+      <!-- Arrow -->
+      <line x1="175" y1="100" x2="210" y2="100" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
+      <polygon points="210,95 220,100 210,105" fill="rgba(255,255,255,0.3)"/>
+
+      <!-- Step 2 -->
+      <rect x="225" y="60" width="140" height="80" rx="4" fill="rgba(74,222,128,0.1)" stroke="#4ADE80" stroke-width="1.2"/>
+      <text x="295" y="85" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="8" fill="#4ADE80" font-weight="500">STEP 2</text>
+      <text x="295" y="100" text-anchor="middle" font-family="DM Serif Display, serif" font-size="12" fill="white">Taut String</text>
+      <text x="295" y="115" text-anchor="middle" font-family="DM Serif Display, serif" font-size="12" fill="white">Verify</text>
+      <text x="295" y="132" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="6" fill="rgba(255,255,255,0.4)">PHYSICAL CHECK</text>
+
+      <!-- Arrow -->
+      <line x1="370" y1="100" x2="405" y2="100" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
+      <polygon points="405,95 415,100 405,105" fill="rgba(255,255,255,0.3)"/>
+
+      <!-- Decision -->
+      <rect x="420" y="60" width="140" height="80" rx="4" fill="rgba(255,215,0,0.08)" stroke="#FFD700" stroke-width="1.2"/>
+      <text x="490" y="82" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="8" fill="#FFD700" font-weight="500">AGREE WITHIN</text>
+      <text x="490" y="100" text-anchor="middle" font-family="DM Serif Display, serif" font-size="18" fill="#FFD700">1/32″</text>
+      <text x="490" y="115" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="7" fill="#FFD700">?</text>
+      <text x="490" y="132" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="6" fill="rgba(255,255,255,0.4)">CROSS-CHECK W/ PLAN</text>
+
+      <!-- Yes arrow -->
+      <line x1="565" y1="100" x2="600" y2="100" stroke="#4ADE80" stroke-width="1"/>
+      <polygon points="600,95 610,100 600,105" fill="#4ADE80"/>
+
+      <!-- Commit -->
+      <rect x="615" y="72" width="65" height="56" rx="4" fill="#4ADE80" opacity="0.2" stroke="#4ADE80" stroke-width="1.2"/>
+      <text x="647" y="95" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="8" fill="#4ADE80" font-weight="500">DRILL</text>
+      <text x="647" y="108" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="8" fill="#4ADE80" font-weight="500">PIN HOLES</text>
+
+      <!-- No arrow - go back -->
+      <line x1="490" y1="145" x2="490" y2="170" stroke="#FF6B6B" stroke-width="1"/>
+      <text x="490" y="185" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="7" fill="#FF6B6B">DIAGNOSE &amp; REMEASURE</text>
+    </svg>
+    <div class="blueprint-label">Fig. 6 — Recommended workflow for bridge placement</div>
+  </div>
+
+  <div class="callout" style="border-left-color: var(--brown); background: rgba(107,66,38,0.06);">
+    <div class="callout-title" style="color: var(--brown);">Your Bolt-On Advantage</div>
+    <p>Do a <strong>full dry assembly and check intonation with actual strings</strong> before gluing the bridge. Bolt the neck, temporarily clamp or tape the bridge in position, string up, and check the 12th fret harmonic against the fretted 12th fret note.</p>
+    <p>You have the luxury of being able to shift the bridge position by fractions before committing. That's the single biggest advantage of a bolt-on for bridge placement. <em>Use it.</em></p>
+  </div>
+</section>
+
+<!-- ═══════════════════════════ FOOTER ═══════════════════════════ -->
+<footer>
+  <strong style="font-family:'DM Serif Display',Georgia,serif; letter-spacing:0.04em;">Six Sides Guitar Co.</strong><br>
+  D-28 Style Bridge Placement Guide &nbsp;·&nbsp; Bolt-On Neck Reference &nbsp;·&nbsp; Scale Length 25.400″<br>
+  <a href="/cdn-cgi/l/email-protection#41252037282501252037282524292d2433326f222e2c" style="color:#8B6914; text-decoration:none;"><span class="__cf_email__" data-cfemail="9bfffaedf2ffdbfffaedf2fffef3f7fee9e8b5f8f4f6">[email&#160;protected]</span></a>
+</footer>
+
+<!-- ═══════════════════════════ SCROLL ANIMATION ═══════════════════════════ -->
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+
+<!-- ═══════════════════════════ LIGHTBOX ═══════════════════════════ -->
+<div class="lightbox-overlay" id="lightbox">
+  <div class="lightbox-caption" id="lb-caption"></div>
+  <button class="lightbox-close" id="lb-close">×</button>
+  <div class="lightbox-container" id="lb-container">
+    <div class="lightbox-content" id="lb-content"></div>
+  </div>
+  <div class="lightbox-toolbar">
+    <button id="lb-zoom-out" title="Zoom out">−</button>
+    <div class="lightbox-zoom-level" id="lb-zoom-level">100%</div>
+    <button id="lb-zoom-in" title="Zoom in">+</button>
+    <button id="lb-reset" title="Reset view">⟳</button>
+  </div>
+</div>
+
+<script>
+  // ═══════════ LIGHTBOX VIEWER WITH ZOOM & PAN ═══════════
+  (function() {
+    const overlay = document.getElementById('lightbox');
+    const content = document.getElementById('lb-content');
+    const container = document.getElementById('lb-container');
+    const caption = document.getElementById('lb-caption');
+    const zoomLevel = document.getElementById('lb-zoom-level');
+    const closeBtn = document.getElementById('lb-close');
+    const zoomInBtn = document.getElementById('lb-zoom-in');
+    const zoomOutBtn = document.getElementById('lb-zoom-out');
+    const resetBtn = document.getElementById('lb-reset');
+
+    let scale = 1, panX = 0, panY = 0;
+    let isDragging = false, startX, startY, startPanX, startPanY;
+    const MIN_SCALE = 0.5, MAX_SCALE = 6, ZOOM_STEP = 0.3;
+
+    function updateTransform() {
+      content.style.transform = `translate(${panX}px, ${panY}px) scale(${scale})`;
+      zoomLevel.textContent = Math.round(scale * 100) + '%';
+    }
+
+    function resetView() {
+      scale = 1; panX = 0; panY = 0;
+      content.style.transition = 'transform 0.3s ease-out';
+      updateTransform();
+      setTimeout(() => content.style.transition = 'transform 0.1s ease-out', 300);
+    }
+
+    function openLightbox(blueprint) {
+      const svg = blueprint.querySelector('svg');
+      const label = blueprint.querySelector('.blueprint-label');
+      if (!svg) return;
+      content.innerHTML = '';
+      const clone = svg.cloneNode(true);
+      clone.style.width = '100%';
+      clone.style.height = 'auto';
+      content.appendChild(clone);
+      caption.textContent = label ? label.textContent : '';
+      resetView();
+      overlay.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox() {
+      overlay.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    // Open on blueprint click
+    document.querySelectorAll('.blueprint').forEach(bp => {
+      bp.style.cursor = 'pointer';
+      bp.addEventListener('click', () => openLightbox(bp));
+    });
+
+    // Close
+    closeBtn.addEventListener('click', closeLightbox);
+    overlay.addEventListener('click', e => {
+      if (e.target === overlay || e.target === container) closeLightbox();
+    });
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') closeLightbox();
+    });
+
+    // Zoom
+    zoomInBtn.addEventListener('click', e => { e.stopPropagation(); scale = Math.min(MAX_SCALE, scale + ZOOM_STEP); updateTransform(); });
+    zoomOutBtn.addEventListener('click', e => { e.stopPropagation(); scale = Math.max(MIN_SCALE, scale - ZOOM_STEP); updateTransform(); });
+    resetBtn.addEventListener('click', e => { e.stopPropagation(); resetView(); });
+
+    // Mouse wheel zoom
+    container.addEventListener('wheel', e => {
+      e.preventDefault();
+      const delta = e.deltaY > 0 ? -ZOOM_STEP : ZOOM_STEP;
+      scale = Math.max(MIN_SCALE, Math.min(MAX_SCALE, scale + delta));
+      updateTransform();
+    }, { passive: false });
+
+    // Pan
+    container.addEventListener('mousedown', e => {
+      if (e.target.closest('.lightbox-toolbar') || e.target.closest('.lightbox-close')) return;
+      isDragging = true; startX = e.clientX; startY = e.clientY;
+      startPanX = panX; startPanY = panY; e.preventDefault();
+    });
+    window.addEventListener('mousemove', e => {
+      if (!isDragging) return;
+      panX = startPanX + (e.clientX - startX);
+      panY = startPanY + (e.clientY - startY);
+      updateTransform();
+    });
+    window.addEventListener('mouseup', () => isDragging = false);
+
+    // Touch pan
+    let touchStartX, touchStartY;
+    container.addEventListener('touchstart', e => {
+      if (e.touches.length === 1) {
+        isDragging = true;
+        touchStartX = e.touches[0].clientX; touchStartY = e.touches[0].clientY;
+        startPanX = panX; startPanY = panY;
+      }
+    }, { passive: true });
+    container.addEventListener('touchmove', e => {
+      if (!isDragging || e.touches.length !== 1) return;
+      panX = startPanX + (e.touches[0].clientX - touchStartX);
+      panY = startPanY + (e.touches[0].clientY - touchStartY);
+      updateTransform();
+    }, { passive: true });
+    container.addEventListener('touchend', () => isDragging = false);
+  })();
+</script>
+
+</body>
+</html>
