@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<!-- saved from url=(0039)file:///Users/de/Downloads/index_1.html -->
-<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Six Sides Guitar Co.</title>
-  <link href="./index_files/css2" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Cinzel:wght@400;600&display=swap" rel="stylesheet"/>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -318,6 +318,245 @@
     }
     .link-card:hover .link-arrow { opacity: 1; transform: translateX(0); }
 
+    /* ── Technical Reference Section ── */
+    .tech-section {
+      padding: 5rem 4rem;
+      background: rgba(8,3,0,0.88);
+      border-top: 1px solid rgba(200,133,42,0.15);
+    }
+    .tech-section-header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+    .tech-section-eyebrow {
+      font-family: 'Cinzel', serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--amber);
+      opacity: 0.7;
+      margin-bottom: 0.7rem;
+    }
+    .tech-section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.4rem, 2.5vw, 2rem);
+      font-style: italic;
+      color: var(--cream);
+    }
+    .tech-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 2px;
+      max-width: 1000px;
+      margin: 0 auto;
+      background: rgba(200,133,42,0.1);
+    }
+    .tech-card {
+      background: rgba(12,5,1,0.95);
+      text-decoration: none;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      transition: background 0.3s;
+      position: relative;
+    }
+    .tech-card:hover { background: rgba(20,9,2,0.98); }
+
+    /* animated preview area */
+    .tech-preview {
+      width: 100%;
+      height: 200px;
+      position: relative;
+      overflow: hidden;
+      border-bottom: 1px solid rgba(200,133,42,0.12);
+      background: rgba(5,2,0,0.95);
+    }
+    .tech-preview svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    /* ── Bridge Placement Animation ── */
+    .bp-body {
+      stroke: rgba(200,133,42,0.35);
+      stroke-width: 1.5;
+      fill: rgba(200,133,42,0.04);
+      stroke-dasharray: 600;
+      stroke-dashoffset: 600;
+      animation: drawLine 2.2s 0.3s ease forwards;
+    }
+    .bp-centerline {
+      stroke: rgba(200,133,42,0.2);
+      stroke-width: 0.8;
+      stroke-dasharray: 6 4;
+      stroke-dashoffset: 300;
+      animation: drawLine 1.5s 1s ease forwards;
+    }
+    .bp-bridge {
+      fill: none;
+      stroke: var(--gold);
+      stroke-width: 1.8;
+      stroke-dasharray: 200;
+      stroke-dashoffset: 200;
+      animation: drawLine 0.9s 2s ease forwards;
+    }
+    .bp-bridge-fill {
+      fill: rgba(232,180,85,0.12);
+      opacity: 0;
+      animation: fadeIn 0.6s 2.5s ease forwards;
+    }
+    .bp-dim-line {
+      stroke: rgba(200,133,42,0.4);
+      stroke-width: 0.7;
+      stroke-dasharray: 150;
+      stroke-dashoffset: 150;
+      animation: drawLine 0.8s 2.6s ease forwards;
+    }
+    .bp-dim-label {
+      fill: var(--gold);
+      font-family: 'Courier New', monospace;
+      font-size: 7px;
+      opacity: 0;
+      animation: fadeIn 0.5s 3.1s ease forwards;
+    }
+    .bp-dot {
+      fill: var(--gold);
+      opacity: 0;
+      animation: fadeIn 0.4s 2.2s ease forwards;
+    }
+    .bp-saddle {
+      stroke: rgba(245,236,215,0.6);
+      stroke-width: 2.5;
+      stroke-linecap: round;
+      stroke-dasharray: 80;
+      stroke-dashoffset: 80;
+      animation: drawLine 0.6s 2.2s ease forwards;
+    }
+    .bp-scan-line {
+      stroke: rgba(232,180,85,0.15);
+      stroke-width: 1;
+      animation: scanDown 4s 0.5s ease-in-out infinite;
+    }
+    @keyframes scanDown {
+      0%   { transform: translateY(-10px); opacity: 0; }
+      10%  { opacity: 1; }
+      90%  { opacity: 1; }
+      100% { transform: translateY(210px); opacity: 0; }
+    }
+
+    /* ── Neck Angle Animation ── */
+    .na-body-side {
+      stroke: rgba(200,133,42,0.35);
+      stroke-width: 1.5;
+      fill: rgba(200,133,42,0.04);
+      stroke-dasharray: 500;
+      stroke-dashoffset: 500;
+      animation: drawLine 2s 0.3s ease forwards;
+    }
+    .na-neck {
+      stroke: var(--gold);
+      stroke-width: 2;
+      fill: rgba(232,180,85,0.08);
+      stroke-dasharray: 300;
+      stroke-dashoffset: 300;
+      animation: drawLine 1.2s 1.8s ease forwards;
+    }
+    .na-angle-arc {
+      stroke: rgba(232,180,85,0.7);
+      stroke-width: 1;
+      fill: none;
+      stroke-dasharray: 60;
+      stroke-dashoffset: 60;
+      animation: drawLine 0.8s 2.8s ease forwards;
+    }
+    .na-angle-label {
+      fill: var(--gold);
+      font-family: 'Courier New', monospace;
+      font-size: 7.5px;
+      opacity: 0;
+      animation: fadeIn 0.5s 3.4s ease forwards;
+    }
+    .na-baseline {
+      stroke: rgba(200,133,42,0.25);
+      stroke-width: 0.8;
+      stroke-dasharray: 4 3;
+      stroke-dashoffset: 400;
+      animation: drawLine 1.5s 0.8s ease forwards;
+    }
+    .na-arrow {
+      stroke: rgba(200,133,42,0.5);
+      stroke-width: 0.9;
+      fill: none;
+      stroke-dasharray: 80;
+      stroke-dashoffset: 80;
+      animation: drawLine 0.6s 3s ease forwards;
+    }
+    .na-brace {
+      stroke: rgba(245,236,215,0.25);
+      stroke-width: 0.8;
+      fill: none;
+      stroke-dasharray: 100;
+      stroke-dashoffset: 100;
+      animation: drawLine 0.7s 3.5s ease forwards;
+    }
+    .na-label {
+      fill: rgba(245,236,215,0.55);
+      font-family: 'Courier New', monospace;
+      font-size: 6.5px;
+      opacity: 0;
+      animation: fadeIn 0.5s 3.8s ease forwards;
+    }
+    .na-grid-line {
+      stroke: rgba(200,133,42,0.06);
+      stroke-width: 0.5;
+    }
+
+    .tech-card-body {
+      padding: 1.6rem 2rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      flex: 1;
+    }
+    .tech-card-text h4 {
+      font-family: 'Cinzel', serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.4rem;
+    }
+    .tech-card-text p {
+      font-size: 0.88rem;
+      font-style: italic;
+      color: var(--parchment);
+      opacity: 0.72;
+      line-height: 1.55;
+    }
+    .tech-card-arrow {
+      margin-left: auto;
+      align-self: center;
+      color: var(--amber);
+      font-size: 1.1rem;
+      opacity: 0;
+      transform: translateX(-6px);
+      transition: opacity 0.25s, transform 0.25s;
+      flex-shrink: 0;
+    }
+    .tech-card:hover .tech-card-arrow { opacity: 1; transform: translateX(0); }
+    .tech-badge {
+      display: inline-block;
+      font-family: 'Cinzel', serif;
+      font-size: 0.55rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--amber);
+      border: 1px solid rgba(200,133,42,0.3);
+      padding: 0.15rem 0.5rem;
+      margin-bottom: 0.5rem;
+      opacity: 0.8;
+    }
+
     /* ── Footer ── */
     footer {
       padding: 2rem 4rem;
@@ -369,35 +608,35 @@
 
   <!-- Background -->
   <div class="bg-wrap">
-    <img class="bg-img" src="file:///Users/de/Downloads/bg.JPG" alt="Guitar workshop background">
+    <img class="bg-img" src="bg.JPG" alt="Guitar workshop background"/>
     <div class="bg-overlay"></div>
     <div class="bg-vignette"></div>
   </div>
 
   <!-- Particle Canvas -->
-  <canvas id="particles" width="1493" height="932"></canvas>
+  <canvas id="particles"></canvas>
 
   <div class="site-wrap">
 
     <!-- Header -->
     <header>
-      <a href="file:///Users/de/Downloads/index_1.html#" class="logo-wrap" aria-label="Six Sides Guitar Co.">
+      <a href="#" class="logo-wrap" aria-label="Six Sides Guitar Co.">
         <svg width="477" height="315" viewBox="0 0 477 315" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M283.54 201.34C282.98 207.95 287.6 212.35 293.9 211.2C300.2 210.05 305.93 203.75 306.49 197.15C307.05 190.54 302.24 185.96 295.95 187.11C289.65 188.26 284.1 194.73 283.54 201.34Z" fill="currentColor"></path>
-          <path d="M473.67 202.08C469.51 208.72 464.48 216.14 458 221.73C460 216.96 460.68 211.37 461.1 206.47C461.39 203.06 461.5 199.47 461.8 195.85C462.14 191.8 462.71 187.5 464.66 183.36C465.25 183.46 465.86 183.36 466.47 183.24C469.32 182.72 472.27 180.92 472.58 177.3C472.78 174.96 470.47 173.91 468.44 174.28C457.27 176.32 440.1 194.78 432.08 204.43C431.47 204.54 430.68 204.48 430.07 204.59C421.25 206.2 415.62 216.11 413.39 225.27C408.66 229.44 402.96 232.63 395.98 233.9C390.5 234.9 386.78 231.59 387.27 225.84C399.37 222.37 420.99 207.92 422.22 193.43C422.73 187.46 419.12 185.18 413.84 186.14C398.2 189 380.88 206.88 371.85 224.79C367.98 230.41 362.11 237.15 357.44 238C355.21 238.41 353.56 236.61 353.76 234.26C353.89 232.77 354.05 230.85 355.03 228.78L390.88 152.96L373.21 156.19L349.09 206.99C348.93 201.77 345.48 200.09 340.6 200.98C324.86 203.86 303.88 227.48 296.74 249.17C293.74 252.27 290.89 254.3 288.76 254.76C286.74 255.19 285.51 253.88 285.5 252.36C285.46 247.29 291.43 235.16 295.79 226.31C297.21 223.43 298.48 220.85 299.35 218.91C299.44 218.72 299.5 218.52 299.54 218.32C299.68 217.59 299.45 216.92 298.92 216.49C298.39 216.06 297.62 215.91 296.8 216.09L280.69 219.53C278.83 219.93 277.16 221.25 276.43 222.88L260.04 259.95C257.71 265.22 255.24 271.33 255.28 277.18C255.34 285.15 261.51 287.07 267.43 286.56C267.62 286.56 267.79 286.56 267.92 286.54C278.14 284.94 287.34 277.72 295.37 268.4C296.94 272.22 300.23 274.49 305.44 273.54C316.41 271.54 328.06 254.5 333.32 244.31L333.71 244.45C331.78 248.37 329.98 255.42 329.63 259.47C329.16 265.01 331.23 268.83 337.12 267.76C345.59 266.21 357.77 250.93 366.86 237.76C366.28 240.01 365.89 242.19 365.72 244.28C364.81 254.94 369.22 261.9 379.99 259.94C391.69 257.8 403.08 246.57 412.34 234.62C412.68 245.74 419.54 253.13 431.35 250.98C448.62 247.83 468.17 217.81 476.4 203.29L473.7 202.11L473.67 202.08ZM405.22 193.38C408.06 192.86 408.25 195.35 408.05 197.69C407.25 207.07 395.87 218.6 387.6 221.79C388.03 214.36 397.09 194.87 405.22 193.38ZM345.65 211.82C344.87 220.99 333.8 242.95 323.65 244.81C320.2 245.44 318.93 241.47 319.19 238.49C319.97 229.32 331.39 207.92 341.54 206.07C344.79 205.48 345.9 208.84 345.65 211.83V211.82ZM435.58 226.67C433.14 227.12 431.07 225.6 431.07 223.3C434.5 220.57 437.05 216.54 437.37 212.7C437.59 210.14 437.01 207.52 435.55 205.89C441.89 197.18 451.04 188.37 459.93 182.55C452.28 192.55 449.19 224.18 435.58 226.67Z" fill="currentColor"></path>
-          <path d="M244.55 211.17C266.2 205.94 289.62 188.34 289.62 164.9C289.62 153.21 282.36 146.77 269.17 146.76H269.14C240.94 146.79 213.26 170.8 209.1 198.49C196.95 196.67 184.39 189.01 184.39 175.92C184.39 167.71 193.46 164.02 199.89 164.02C203.31 164.02 206.9 165.07 210.28 167.05C210.5 167.18 210.74 167.24 210.98 167.24C211.31 167.24 211.65 167.12 211.91 166.89C212.36 166.49 212.5 165.84 212.25 165.29C206.34 152.09 193.91 143.56 180.58 143.56C165.54 143.56 154.59 153.89 154.54 168.13C154.54 178.38 159.74 206.81 207.54 213.68C207.68 224.03 208.7 230.45 210.32 240.45C211.93 250.43 213.2 257.33 213.2 265.82C213.2 279.07 202.72 289.91 192.25 294.75C185.25 297.99 173.23 299.74 165.48 298.37C153.66 296.27 140.12 285.78 140.12 271.45C140.12 263.71 144.14 255.39 152.98 255.39C157.99 255.39 162.91 260.42 162.91 265.54C162.91 270.66 158.94 275.28 154.07 275.7C153.5 275.75 153.02 276.14 152.86 276.68C152.69 277.22 152.88 277.81 153.32 278.17C158.77 282.55 164.58 284.86 170.11 284.86C185.9 284.86 197.82 273.06 197.82 257.4C197.82 240.48 184.77 227.72 167.47 227.72C143.94 227.72 125.51 245.62 125.51 268.47C125.51 299.99 151.98 314.01 179.51 314.01C214.2 314.01 251.91 285.7 251.91 244.1C251.91 233.37 247.76 221.04 245.49 214.07C244.88 212.19 245.13 213.06 244.53 211.17H244.55ZM240.38 190.21C240.38 180.24 244.53 158.39 256.86 158.39C264.02 158.39 264.38 168.9 264.38 171C264.38 185.07 252.69 195.02 241.24 197.66C240.66 195.04 240.38 192.64 240.38 190.21Z" fill="currentColor"></path>
-          <path d="M119.98 70.52C119.37 68.64 119.62 69.51 119.02 67.62C140.67 62.39 164.09 44.79 164.09 21.35C164.09 9.66 156.83 3.22 143.64 3.21H143.61C115.41 3.24 87.73 27.25 83.57 54.94C71.42 53.12 58.86 45.46 58.86 32.37C58.86 24.16 67.93 20.47 74.36 20.47C77.78 20.47 81.37 21.52 84.75 23.5C84.97 23.63 85.21 23.69 85.45 23.69C85.78 23.69 86.12 23.57 86.38 23.34C86.83 22.94 86.97 22.29 86.72 21.74C80.83 8.53 68.4 0 55.06 0C40.02 0 29.07 10.33 29.02 24.57C29.02 34.82 34.22 63.25 82.02 70.12C82.16 80.47 83.18 86.89 84.8 96.89C86.41 106.87 87.68 113.77 87.68 122.26C87.68 135.51 77.2 146.35 66.73 151.19C59.73 154.43 47.71 156.18 39.96 154.81C28.14 152.71 14.6 142.22 14.6 127.89C14.6 120.15 18.62 111.83 27.46 111.83C32.47 111.83 37.39 116.86 37.39 121.98C37.39 127.1 33.42 131.72 28.55 132.14C27.98 132.19 27.5 132.58 27.34 133.12C27.17 133.66 27.36 134.25 27.8 134.61C33.25 138.99 39.06 141.3 44.59 141.3C60.38 141.3 72.3 129.5 72.3 113.84C72.3 96.92 59.25 84.16 41.95 84.16C18.43 84.16 0 102.06 0 124.91C0 156.43 26.47 170.45 54 170.45C88.69 170.45 126.4 142.14 126.4 100.54C126.4 89.81 122.25 77.48 119.98 70.51V70.52ZM114.84 46.67C114.84 36.7 118.99 14.85 131.32 14.85C138.48 14.85 138.84 25.36 138.84 27.46C138.84 41.53 127.15 51.48 115.7 54.12C115.12 51.5 114.84 49.1 114.84 46.67Z" fill="currentColor"></path>
-          <path d="M176.6 99.5599C172.1 105.55 167.38 109.68 164.21 110.35C162.19 110.78 160.96 109.47 160.95 107.95C160.91 102.88 166.88 90.7499 171.24 81.8999C172.66 79.0199 173.93 76.4399 174.8 74.4999C174.89 74.3099 174.95 74.1099 174.99 73.9099C175.13 73.1799 174.9 72.5099 174.37 72.0799C173.84 71.6499 173.07 71.4999 172.25 71.6799L156.14 75.1199C154.28 75.5199 152.61 76.8399 151.88 78.4699L135.49 115.54C133.16 120.81 130.69 126.92 130.73 132.77C130.79 140.74 136.96 142.66 142.88 142.15C143.07 142.15 143.24 142.15 143.37 142.13C162.85 139.08 178.63 115.63 189.58 96.1399C189.67 95.9899 194.71 86.4899 194.71 86.4899C198.3 80.2999 199.46 75.7199 204.37 76.1999C207.28 76.4899 209.1 78.2199 210.24 83.1299C213.3 96.3799 196.62 123.29 190.51 112.22C186.58 105.1 170.8 131.43 187.67 130.61C200.65 129.98 208.11 109.46 211.5 108.75C213.98 108.23 213.56 112.75 214.19 115.45C218.98 136.2 245.82 111.87 251.75 102C252.19 101.27 252.31 100.49 252.09 99.8099C251.87 99.1299 251.33 98.6299 250.57 98.4099C250.08 98.2699 249.52 98.2599 248.95 98.3799C247.86 98.6099 246.86 99.2999 246.26 100.21C239.64 110.29 235.23 113.03 229.34 110.02C221.3 105.9 227 72.7399 238.66 70.1199C246.16 68.4299 246.65 71.6899 246.51 74.4799C246.49 74.9199 247.19 74.9599 247.69 74.8599C247.7 74.8599 247.72 74.8599 247.73 74.8599C257.32 70.1599 259.45 51.8999 244.13 54.5699C237.92 55.6499 231.73 62.1299 227.13 68.6099C226.15 69.9899 224.01 70.0699 223.69 68.7099C222.38 63.0799 219.52 58.2399 211.94 59.8499C198.38 62.7399 189.82 77.4999 182.94 89.3599C180.76 93.1199 178.7 96.6599 176.78 99.2799C176.71 99.3799 176.66 99.4699 176.62 99.5699L176.6 99.5599Z" fill="currentColor"></path>
-          <path d="M158.81 56.7601C158.25 63.3701 162.87 67.7701 169.17 66.6201C175.47 65.4701 181.2 59.1701 181.76 52.5701C182.32 45.9601 177.51 41.3801 171.22 42.5301C164.92 43.6801 159.37 50.1501 158.81 56.7601Z" fill="currentColor"></path>
+          <path d="M283.54 201.34C282.98 207.95 287.6 212.35 293.9 211.2C300.2 210.05 305.93 203.75 306.49 197.15C307.05 190.54 302.24 185.96 295.95 187.11C289.65 188.26 284.1 194.73 283.54 201.34Z" fill="currentColor"/>
+          <path d="M473.67 202.08C469.51 208.72 464.48 216.14 458 221.73C460 216.96 460.68 211.37 461.1 206.47C461.39 203.06 461.5 199.47 461.8 195.85C462.14 191.8 462.71 187.5 464.66 183.36C465.25 183.46 465.86 183.36 466.47 183.24C469.32 182.72 472.27 180.92 472.58 177.3C472.78 174.96 470.47 173.91 468.44 174.28C457.27 176.32 440.1 194.78 432.08 204.43C431.47 204.54 430.68 204.48 430.07 204.59C421.25 206.2 415.62 216.11 413.39 225.27C408.66 229.44 402.96 232.63 395.98 233.9C390.5 234.9 386.78 231.59 387.27 225.84C399.37 222.37 420.99 207.92 422.22 193.43C422.73 187.46 419.12 185.18 413.84 186.14C398.2 189 380.88 206.88 371.85 224.79C367.98 230.41 362.11 237.15 357.44 238C355.21 238.41 353.56 236.61 353.76 234.26C353.89 232.77 354.05 230.85 355.03 228.78L390.88 152.96L373.21 156.19L349.09 206.99C348.93 201.77 345.48 200.09 340.6 200.98C324.86 203.86 303.88 227.48 296.74 249.17C293.74 252.27 290.89 254.3 288.76 254.76C286.74 255.19 285.51 253.88 285.5 252.36C285.46 247.29 291.43 235.16 295.79 226.31C297.21 223.43 298.48 220.85 299.35 218.91C299.44 218.72 299.5 218.52 299.54 218.32C299.68 217.59 299.45 216.92 298.92 216.49C298.39 216.06 297.62 215.91 296.8 216.09L280.69 219.53C278.83 219.93 277.16 221.25 276.43 222.88L260.04 259.95C257.71 265.22 255.24 271.33 255.28 277.18C255.34 285.15 261.51 287.07 267.43 286.56C267.62 286.56 267.79 286.56 267.92 286.54C278.14 284.94 287.34 277.72 295.37 268.4C296.94 272.22 300.23 274.49 305.44 273.54C316.41 271.54 328.06 254.5 333.32 244.31L333.71 244.45C331.78 248.37 329.98 255.42 329.63 259.47C329.16 265.01 331.23 268.83 337.12 267.76C345.59 266.21 357.77 250.93 366.86 237.76C366.28 240.01 365.89 242.19 365.72 244.28C364.81 254.94 369.22 261.9 379.99 259.94C391.69 257.8 403.08 246.57 412.34 234.62C412.68 245.74 419.54 253.13 431.35 250.98C448.62 247.83 468.17 217.81 476.4 203.29L473.7 202.11L473.67 202.08ZM405.22 193.38C408.06 192.86 408.25 195.35 408.05 197.69C407.25 207.07 395.87 218.6 387.6 221.79C388.03 214.36 397.09 194.87 405.22 193.38ZM345.65 211.82C344.87 220.99 333.8 242.95 323.65 244.81C320.2 245.44 318.93 241.47 319.19 238.49C319.97 229.32 331.39 207.92 341.54 206.07C344.79 205.48 345.9 208.84 345.65 211.83V211.82ZM435.58 226.67C433.14 227.12 431.07 225.6 431.07 223.3C434.5 220.57 437.05 216.54 437.37 212.7C437.59 210.14 437.01 207.52 435.55 205.89C441.89 197.18 451.04 188.37 459.93 182.55C452.28 192.55 449.19 224.18 435.58 226.67Z" fill="currentColor"/>
+          <path d="M244.55 211.17C266.2 205.94 289.62 188.34 289.62 164.9C289.62 153.21 282.36 146.77 269.17 146.76H269.14C240.94 146.79 213.26 170.8 209.1 198.49C196.95 196.67 184.39 189.01 184.39 175.92C184.39 167.71 193.46 164.02 199.89 164.02C203.31 164.02 206.9 165.07 210.28 167.05C210.5 167.18 210.74 167.24 210.98 167.24C211.31 167.24 211.65 167.12 211.91 166.89C212.36 166.49 212.5 165.84 212.25 165.29C206.34 152.09 193.91 143.56 180.58 143.56C165.54 143.56 154.59 153.89 154.54 168.13C154.54 178.38 159.74 206.81 207.54 213.68C207.68 224.03 208.7 230.45 210.32 240.45C211.93 250.43 213.2 257.33 213.2 265.82C213.2 279.07 202.72 289.91 192.25 294.75C185.25 297.99 173.23 299.74 165.48 298.37C153.66 296.27 140.12 285.78 140.12 271.45C140.12 263.71 144.14 255.39 152.98 255.39C157.99 255.39 162.91 260.42 162.91 265.54C162.91 270.66 158.94 275.28 154.07 275.7C153.5 275.75 153.02 276.14 152.86 276.68C152.69 277.22 152.88 277.81 153.32 278.17C158.77 282.55 164.58 284.86 170.11 284.86C185.9 284.86 197.82 273.06 197.82 257.4C197.82 240.48 184.77 227.72 167.47 227.72C143.94 227.72 125.51 245.62 125.51 268.47C125.51 299.99 151.98 314.01 179.51 314.01C214.2 314.01 251.91 285.7 251.91 244.1C251.91 233.37 247.76 221.04 245.49 214.07C244.88 212.19 245.13 213.06 244.53 211.17H244.55ZM240.38 190.21C240.38 180.24 244.53 158.39 256.86 158.39C264.02 158.39 264.38 168.9 264.38 171C264.38 185.07 252.69 195.02 241.24 197.66C240.66 195.04 240.38 192.64 240.38 190.21Z" fill="currentColor"/>
+          <path d="M119.98 70.52C119.37 68.64 119.62 69.51 119.02 67.62C140.67 62.39 164.09 44.79 164.09 21.35C164.09 9.66 156.83 3.22 143.64 3.21H143.61C115.41 3.24 87.73 27.25 83.57 54.94C71.42 53.12 58.86 45.46 58.86 32.37C58.86 24.16 67.93 20.47 74.36 20.47C77.78 20.47 81.37 21.52 84.75 23.5C84.97 23.63 85.21 23.69 85.45 23.69C85.78 23.69 86.12 23.57 86.38 23.34C86.83 22.94 86.97 22.29 86.72 21.74C80.83 8.53 68.4 0 55.06 0C40.02 0 29.07 10.33 29.02 24.57C29.02 34.82 34.22 63.25 82.02 70.12C82.16 80.47 83.18 86.89 84.8 96.89C86.41 106.87 87.68 113.77 87.68 122.26C87.68 135.51 77.2 146.35 66.73 151.19C59.73 154.43 47.71 156.18 39.96 154.81C28.14 152.71 14.6 142.22 14.6 127.89C14.6 120.15 18.62 111.83 27.46 111.83C32.47 111.83 37.39 116.86 37.39 121.98C37.39 127.1 33.42 131.72 28.55 132.14C27.98 132.19 27.5 132.58 27.34 133.12C27.17 133.66 27.36 134.25 27.8 134.61C33.25 138.99 39.06 141.3 44.59 141.3C60.38 141.3 72.3 129.5 72.3 113.84C72.3 96.92 59.25 84.16 41.95 84.16C18.43 84.16 0 102.06 0 124.91C0 156.43 26.47 170.45 54 170.45C88.69 170.45 126.4 142.14 126.4 100.54C126.4 89.81 122.25 77.48 119.98 70.51V70.52ZM114.84 46.67C114.84 36.7 118.99 14.85 131.32 14.85C138.48 14.85 138.84 25.36 138.84 27.46C138.84 41.53 127.15 51.48 115.7 54.12C115.12 51.5 114.84 49.1 114.84 46.67Z" fill="currentColor"/>
+          <path d="M176.6 99.5599C172.1 105.55 167.38 109.68 164.21 110.35C162.19 110.78 160.96 109.47 160.95 107.95C160.91 102.88 166.88 90.7499 171.24 81.8999C172.66 79.0199 173.93 76.4399 174.8 74.4999C174.89 74.3099 174.95 74.1099 174.99 73.9099C175.13 73.1799 174.9 72.5099 174.37 72.0799C173.84 71.6499 173.07 71.4999 172.25 71.6799L156.14 75.1199C154.28 75.5199 152.61 76.8399 151.88 78.4699L135.49 115.54C133.16 120.81 130.69 126.92 130.73 132.77C130.79 140.74 136.96 142.66 142.88 142.15C143.07 142.15 143.24 142.15 143.37 142.13C162.85 139.08 178.63 115.63 189.58 96.1399C189.67 95.9899 194.71 86.4899 194.71 86.4899C198.3 80.2999 199.46 75.7199 204.37 76.1999C207.28 76.4899 209.1 78.2199 210.24 83.1299C213.3 96.3799 196.62 123.29 190.51 112.22C186.58 105.1 170.8 131.43 187.67 130.61C200.65 129.98 208.11 109.46 211.5 108.75C213.98 108.23 213.56 112.75 214.19 115.45C218.98 136.2 245.82 111.87 251.75 102C252.19 101.27 252.31 100.49 252.09 99.8099C251.87 99.1299 251.33 98.6299 250.57 98.4099C250.08 98.2699 249.52 98.2599 248.95 98.3799C247.86 98.6099 246.86 99.2999 246.26 100.21C239.64 110.29 235.23 113.03 229.34 110.02C221.3 105.9 227 72.7399 238.66 70.1199C246.16 68.4299 246.65 71.6899 246.51 74.4799C246.49 74.9199 247.19 74.9599 247.69 74.8599C247.7 74.8599 247.72 74.8599 247.73 74.8599C257.32 70.1599 259.45 51.8999 244.13 54.5699C237.92 55.6499 231.73 62.1299 227.13 68.6099C226.15 69.9899 224.01 70.0699 223.69 68.7099C222.38 63.0799 219.52 58.2399 211.94 59.8499C198.38 62.7399 189.82 77.4999 182.94 89.3599C180.76 93.1199 178.7 96.6599 176.78 99.2799C176.71 99.3799 176.66 99.4699 176.62 99.5699L176.6 99.5599Z" fill="currentColor"/>
+          <path d="M158.81 56.7601C158.25 63.3701 162.87 67.7701 169.17 66.6201C175.47 65.4701 181.2 59.1701 181.76 52.5701C182.32 45.9601 177.51 41.3801 171.22 42.5301C164.92 43.6801 159.37 50.1501 158.81 56.7601Z" fill="currentColor"/>
         </svg>
       </a>
 
       <nav>
-        <a href="file:///Users/de/Downloads/index_1.html#instruments">Instruments</a>
-        <a href="file:///Users/de/Downloads/index_1.html#process">Process</a>
-        <a href="file:///Users/de/Downloads/index_1.html#gallery">Gallery</a>
-        <a href="file:///Users/de/Downloads/index_1.html#about">About</a>
-        <a href="file:///Users/de/Downloads/index_1.html#contact" class="nav-cta">Commission</a>
+        <a href="#instruments">Instruments</a>
+        <a href="#process">Process</a>
+        <a href="#gallery">Gallery</a>
+        <a href="#about">About</a>
+        <a href="#contact" class="nav-cta">Commission</a>
       </nav>
     </header>
 
@@ -405,15 +644,15 @@
     <section class="hero">
       <p class="hero-eyebrow">Handcrafted Bluegrass Guitars</p>
       <h1 class="hero-title">
-        Where it is all about <br> <em>the music</em>
+        Where Tone<br/>Becomes <em>Instrument</em>
       </h1>
       <div class="hero-divider"></div>
       <p class="hero-sub">
-        Each guitar tells a six word story that can be heard over a banjo.
+        Each guitar tells a six word story.
       </p>
       <div class="hero-actions">
-        <a href="file:///Users/de/Downloads/index_1.html#instruments" class="btn-primary">Explore Guitars</a>
-        <a href="file:///Users/de/Downloads/index_1.html#process" class="btn-ghost">Our Process</a>
+        <a href="#instruments" class="btn-primary">Explore Guitars</a>
+        <a href="#process" class="btn-ghost">Our Process</a>
       </div>
     </section>
 
@@ -427,19 +666,229 @@
       <div class="feature">
         <span class="feature-icon">🎸</span>
         <h3>Custom Builds</h3>
-        <p>With each one uniquely yours</p>
+        <p>D-28, 000, OM, classical — each one uniquely yours</p>
       </div>
       <div class="feature">
         <span class="feature-icon">⏳</span>
         <h3>Built to Last</h3>
-        <p>Traditional building approaches. Hide glue construction. The finest tonewoods.  A lifetime of resonance</p>
+        <p>Hide glue construction. A lifetime of resonance</p>
       </div>
     </div>
 
+    <!-- Technical Reference Section -->
+    <section class="tech-section" id="reference">
+      <div class="tech-section-header">
+        <p class="tech-section-eyebrow">Workshop Documentation</p>
+        <h2 class="tech-section-title">Luthier's Technical Reference</h2>
+      </div>
+
+      <div class="tech-grid">
+
+        <!-- Bridge Placement Card -->
+        <a href="./bridge-placement-v2.html" class="tech-card">
+          <div class="tech-preview">
+            <svg viewBox="0 0 340 200" xmlns="http://www.w3.org/2000/svg">
+              <!-- grid -->
+              <line class="na-grid-line" x1="0" y1="40" x2="340" y2="40"/>
+              <line class="na-grid-line" x1="0" y1="80" x2="340" y2="80"/>
+              <line class="na-grid-line" x1="0" y1="120" x2="340" y2="120"/>
+              <line class="na-grid-line" x1="0" y1="160" x2="340" y2="160"/>
+              <line class="na-grid-line" x1="68" y1="0" x2="68" y2="200"/>
+              <line class="na-grid-line" x1="136" y1="0" x2="136" y2="200"/>
+              <line class="na-grid-line" x1="204" y1="0" x2="204" y2="200"/>
+              <line class="na-grid-line" x1="272" y1="0" x2="272" y2="200"/>
+
+              <!-- scan line -->
+              <line class="bp-scan-line" x1="0" y1="0" x2="340" y2="0"/>
+
+              <!-- guitar body outline (simplified dreadnought top view) -->
+              <path class="bp-body" d="
+                M 170 18
+                C 220 18, 265 35, 278 65
+                C 292 97, 285 118, 270 130
+                C 290 143, 295 165, 282 180
+                C 268 196, 230 200, 170 200
+                C 110 200, 72 196, 58 180
+                C 45 165, 50 143, 70 130
+                C 55 118, 48 97, 62 65
+                C 75 35, 120 18, 170 18 Z
+              "/>
+
+              <!-- center line -->
+              <line class="bp-centerline" x1="170" y1="10" x2="170" y2="198"/>
+
+              <!-- sound hole -->
+              <circle cx="170" cy="90" r="30" fill="none"
+                stroke="rgba(200,133,42,0.2)" stroke-width="1"
+                stroke-dasharray="188" stroke-dashoffset="188"
+                style="animation: drawLine 1.2s 1.5s ease forwards"/>
+
+              <!-- bridge body fill -->
+              <rect class="bp-bridge-fill" x="143" y="140" width="54" height="12" rx="1"/>
+
+              <!-- bridge outline -->
+              <rect class="bp-bridge" x="143" y="140" width="54" height="12" rx="1"/>
+
+              <!-- saddle -->
+              <line class="bp-saddle" x1="152" y1="146" x2="188" y2="146"/>
+
+              <!-- bridge pins -->
+              <circle class="bp-dot" cx="157" cy="143" r="1.5"/>
+              <circle class="bp-dot" cx="164" cy="143" r="1.5" style="animation-delay:2.3s"/>
+              <circle class="bp-dot" cx="170" cy="143" r="1.5" style="animation-delay:2.35s"/>
+              <circle class="bp-dot" cx="176" cy="143" r="1.5" style="animation-delay:2.4s"/>
+              <circle class="bp-dot" cx="183" cy="143" r="1.5" style="animation-delay:2.45s"/>
+              <circle class="bp-dot" cx="157" cy="149" r="1.5" style="animation-delay:2.5s"/>
+              <circle class="bp-dot" cx="164" cy="149" r="1.5" style="animation-delay:2.55s"/>
+              <circle class="bp-dot" cx="170" cy="149" r="1.5" style="animation-delay:2.6s"/>
+              <circle class="bp-dot" cx="176" cy="149" r="1.5" style="animation-delay:2.65s"/>
+              <circle class="bp-dot" cx="183" cy="149" r="1.5" style="animation-delay:2.7s"/>
+
+              <!-- dimension line: nut to saddle -->
+              <line class="bp-dim-line" x1="195" y1="18" x2="195" y2="146"/>
+              <line class="bp-dim-line" x1="190" y1="18" x2="200" y2="18" style="animation-delay:2.65s"/>
+              <line class="bp-dim-line" x1="190" y1="146" x2="200" y2="146" style="animation-delay:2.7s"/>
+              <text class="bp-dim-label" x="200" y="88" transform="rotate(90,200,88)" text-anchor="middle">25.4" SCALE</text>
+
+              <!-- callout line -->
+              <line class="bp-dim-line" x1="197" y1="146" x2="230" y2="162" style="animation-delay:3s"/>
+              <text class="bp-dim-label" x="232" y="165" style="animation-delay:3.2s">SADDLE</text>
+
+              <!-- NUT marker top -->
+              <rect x="148" y="16" width="44" height="4" fill="none"
+                stroke="rgba(245,236,215,0.3)" stroke-width="0.8"
+                stroke-dasharray="100" stroke-dashoffset="100"
+                style="animation: drawLine 0.5s 2.9s ease forwards"/>
+              <text class="bp-dim-label" x="152" y="14" style="animation-delay:3.3s; font-size:6px;">NUT</text>
+            </svg>
+          </div>
+          <div class="tech-card-body">
+            <div class="tech-card-text">
+              <span class="tech-badge">Reference Guide</span>
+              <h4>Bridge Placement</h4>
+              <p>Scale length, saddle compensation, and X-bracing geometry for precise intonation</p>
+            </div>
+            <span class="tech-card-arrow">→</span>
+          </div>
+        </a>
+
+        <!-- Neck Angle Card -->
+        <a href="./neck-angle-guide.html" class="tech-card">
+          <div class="tech-preview">
+            <svg viewBox="0 0 340 200" xmlns="http://www.w3.org/2000/svg">
+              <!-- grid -->
+              <line class="na-grid-line" x1="0" y1="40" x2="340" y2="40"/>
+              <line class="na-grid-line" x1="0" y1="80" x2="340" y2="80"/>
+              <line class="na-grid-line" x1="0" y1="120" x2="340" y2="120"/>
+              <line class="na-grid-line" x1="0" y1="160" x2="340" y2="160"/>
+              <line class="na-grid-line" x1="68" y1="0" x2="68" y2="200"/>
+              <line class="na-grid-line" x1="136" y1="0" x2="136" y2="200"/>
+              <line class="na-grid-line" x1="204" y1="0" x2="204" y2="200"/>
+              <line class="na-grid-line" x1="272" y1="0" x2="272" y2="200"/>
+
+              <!-- scan line -->
+              <line class="bp-scan-line" x1="0" y1="0" x2="340" y2="0"/>
+
+              <!-- guitar body side profile -->
+              <path class="na-body-side" d="
+                M 145 155
+                C 145 140, 148 125, 155 118
+                C 162 110, 175 108, 195 108
+                C 225 108, 265 112, 290 118
+                C 310 123, 318 130, 320 140
+                C 322 152, 318 162, 308 168
+                C 295 176, 270 180, 220 182
+                C 175 184, 152 178, 147 170
+                C 145 165, 145 160, 145 155 Z
+              "/>
+
+              <!-- baseline (top of body reference) -->
+              <line class="na-baseline" x1="60" y1="108" x2="330" y2="108"/>
+
+              <!-- neck profile (angled down toward body) -->
+              <path class="na-neck" d="
+                M 30 72
+                L 145 108
+                L 155 118
+                L 140 120
+                L 125 110
+                L 22 82 Z
+              "/>
+
+              <!-- fret lines on neck -->
+              <line stroke="rgba(245,236,215,0.15)" stroke-width="0.7"
+                x1="42" y1="75" x2="48" y2="83"
+                stroke-dasharray="20" stroke-dashoffset="20"
+                style="animation: drawLine 0.3s 2.5s ease forwards"/>
+              <line stroke="rgba(245,236,215,0.15)" stroke-width="0.7"
+                x1="60" y1="79" x2="66" y2="87"
+                stroke-dasharray="20" stroke-dashoffset="20"
+                style="animation: drawLine 0.3s 2.6s ease forwards"/>
+              <line stroke="rgba(245,236,215,0.15)" stroke-width="0.7"
+                x1="78" y1="83" x2="84" y2="91"
+                stroke-dasharray="20" stroke-dashoffset="20"
+                style="animation: drawLine 0.3s 2.7s ease forwards"/>
+              <line stroke="rgba(245,236,215,0.15)" stroke-width="0.7"
+                x1="96" y1="87" x2="102" y2="95"
+                stroke-dasharray="20" stroke-dashoffset="20"
+                style="animation: drawLine 0.3s 2.8s ease forwards"/>
+              <line stroke="rgba(245,236,215,0.15)" stroke-width="0.7"
+                x1="114" y1="91" x2="120" y2="99"
+                stroke-dasharray="20" stroke-dashoffset="20"
+                style="animation: drawLine 0.3s 2.9s ease forwards"/>
+
+              <!-- neck angle arc -->
+              <path class="na-angle-arc" d="M 165 108 A 22 22 0 0 1 148 91"/>
+
+              <!-- angle label -->
+              <text class="na-angle-label" x="168" y="100">1.5°</text>
+
+              <!-- projection line (string line extended) -->
+              <line class="na-arrow" x1="22" y1="72" x2="320" y2="72" 
+                stroke="rgba(232,180,85,0.3)" stroke-width="0.8" stroke-dasharray="6 4"
+                stroke-dashoffset="400"
+                style="animation: drawLine 1.5s 3s ease forwards"/>
+
+              <!-- saddle height brace -->
+              <path class="na-brace" d="M 240 108 L 240 72 M 235 72 L 245 72 M 235 108 L 245 108"/>
+              <text class="na-label" x="247" y="93">saddle<tspan x="247" dy="8">height</tspan></text>
+
+              <!-- nut label -->
+              <rect x="18" y="70" width="8" height="14" fill="rgba(245,236,215,0.1)"
+                stroke="rgba(245,236,215,0.3)" stroke-width="0.8"
+                stroke-dasharray="50" stroke-dashoffset="50"
+                style="animation: drawLine 0.5s 2.2s ease forwards"/>
+              <text class="na-angle-label" x="8" y="68" style="animation-delay:2.8s; font-size:6px">NUT</text>
+
+              <!-- bridge top reference dot -->
+              <circle cx="240" cy="108" r="2.5" fill="var(--gold)" opacity="0"
+                style="animation: fadeIn 0.4s 3.4s ease forwards"/>
+
+              <!-- callout: heel -->
+              <line stroke="rgba(200,133,42,0.35)" stroke-width="0.7"
+                x1="145" y1="114" x2="118" y2="134"
+                stroke-dasharray="40" stroke-dashoffset="40"
+                style="animation: drawLine 0.5s 3.6s ease forwards"/>
+              <text class="na-label" x="88" y="140" style="animation-delay:3.9s">HEEL</text>
+            </svg>
+          </div>
+          <div class="tech-card-body">
+            <div class="tech-card-text">
+              <span class="tech-badge">Reference Guide</span>
+              <h4>Neck Angle Setting</h4>
+              <p>Bolt-on geometry, heel alignment, and saddle height projection for pre-war dreadnoughts</p>
+            </div>
+            <span class="tech-card-arrow">→</span>
+          </div>
+        </a>
+
+      </div>
+    </section>
+
     <!-- Footer -->
     <footer>
-      <p>©2026 Six Sides Guitar Co. — All Rights Reserved</p>
-      <span class="footer-tagline">Heirloom Bluegrass guitars made with love.</span>
+      <p>© 2025 Six Sides Guitar Co. — All Rights Reserved</p>
+      <span class="footer-tagline">Every voice deserves the right instrument.</span>
     </footer>
 
   </div><!-- /site-wrap -->
@@ -560,6 +1009,5 @@
   animate();
   </script>
 
-
-
-</body></html>
+</body>
+</html>
