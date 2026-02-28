@@ -557,79 +557,6 @@
       opacity: 0.8;
     }
 
-    /* ── Coming Soon Toast ── */
-    .toast {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%) scale(0.88);
-      z-index: 1000;
-      background: rgba(12, 5, 1, 0.97);
-      border: 1px solid rgba(200,133,42,0.45);
-      padding: 2.8rem 3.8rem;
-      text-align: center;
-      pointer-events: none;
-      opacity: 0;
-      transition: opacity 0.3s ease, transform 0.3s ease;
-      box-shadow: 0 0 80px rgba(200,133,42,0.12), 0 20px 60px rgba(0,0,0,0.7);
-      min-width: 300px;
-    }
-    .toast.visible {
-      opacity: 1;
-      transform: translate(-50%, -50%) scale(1);
-      pointer-events: auto;
-    }
-    .toast-icon {
-      display: block;
-      font-size: 1.6rem;
-      margin-bottom: 1rem;
-      color: var(--gold);
-    }
-    .toast-eyebrow {
-      font-family: 'Cinzel', serif;
-      font-size: 0.6rem;
-      letter-spacing: 0.35em;
-      text-transform: uppercase;
-      color: var(--amber);
-      opacity: 0.7;
-      margin-bottom: 0.6rem;
-    }
-    .toast-title {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.6rem;
-      font-style: italic;
-      color: var(--cream);
-      margin-bottom: 0.5rem;
-    }
-    .toast-sub {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 0.95rem;
-      font-style: italic;
-      color: var(--parchment);
-      opacity: 0.65;
-      line-height: 1.6;
-    }
-    .toast-divider {
-      width: 40px;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, var(--amber), transparent);
-      margin: 1rem auto;
-    }
-    .toast-backdrop {
-      position: fixed;
-      inset: 0;
-      z-index: 999;
-      background: rgba(5, 2, 0, 0.55);
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.3s ease;
-      backdrop-filter: blur(2px);
-    }
-    .toast-backdrop.visible {
-      opacity: 1;
-      pointer-events: auto;
-    }
-
     /* ── Footer ── */
     footer {
       padding: 2rem 4rem;
@@ -705,11 +632,11 @@
       </a>
 
       <nav>
-        <a href="#instruments" data-coming-soon>Instruments</a>
-        <a href="#process" data-coming-soon>Process</a>
-        <a href="#gallery" data-coming-soon>Gallery</a>
-        <a href="#about" data-coming-soon>About</a>
-        <a href="#contact" class="nav-cta" data-coming-soon>Commission</a>
+        <a href="#instruments">Instruments</a>
+        <a href="#process">Process</a>
+        <a href="#gallery">Gallery</a>
+        <a href="#about">About</a>
+        <a href="#contact" class="nav-cta">Commission</a>
       </nav>
     </header>
 
@@ -724,8 +651,8 @@
         Each guitar tells a six word story.
       </p>
       <div class="hero-actions">
-        <a href="#instruments" class="btn-primary" data-coming-soon>Explore Guitars</a>
-        <a href="#process" class="btn-ghost" data-coming-soon>Our Process</a>
+        <a href="#instruments" class="btn-primary">Explore Guitars</a>
+        <a href="#process" class="btn-ghost">Our Process</a>
       </div>
     </section>
 
@@ -1080,51 +1007,6 @@
     requestAnimationFrame(animate);
   }
   animate();
-  </script>
-
-  <!-- Coming Soon Toast -->
-  <div class="toast-backdrop" id="toastBackdrop"></div>
-  <div class="toast" id="toast" role="dialog" aria-modal="true" aria-label="Coming soon">
-    <span class="toast-icon">✦</span>
-    <p class="toast-eyebrow">Six Sides Guitar Co.</p>
-    <h2 class="toast-title">Coming Soon</h2>
-    <div class="toast-divider"></div>
-    <p class="toast-sub">This page is being crafted<br/>with the same care as our guitars.</p>
-  </div>
-
-  <script>
-  // ── Coming Soon Handler ───────────────────────────────────────────
-  const toast    = document.getElementById('toast');
-  const backdrop = document.getElementById('toastBackdrop');
-  let hideTimer  = null;
-
-  function showToast() {
-    clearTimeout(hideTimer);
-    toast.classList.add('visible');
-    backdrop.classList.add('visible');
-    hideTimer = setTimeout(hideToast, 2800);
-  }
-
-  function hideToast() {
-    toast.classList.remove('visible');
-    backdrop.classList.remove('visible');
-  }
-
-  // Intercept all data-coming-soon links
-  document.querySelectorAll('[data-coming-soon]').forEach(el => {
-    el.addEventListener('click', e => {
-      e.preventDefault();
-      showToast();
-    });
-  });
-
-  // Click backdrop to dismiss early
-  backdrop.addEventListener('click', hideToast);
-
-  // Escape key to dismiss
-  document.addEventListener('keydown', e => {
-    if (e.key === 'Escape') hideToast();
-  });
   </script>
 
 </body>
