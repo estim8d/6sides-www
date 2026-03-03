@@ -524,11 +524,13 @@
   .lightbox-content {
     transform-origin: center center;
     transition: transform 0.1s ease-out;
-    width: 92vw;
     will-change: transform;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
   .lightbox-content svg {
-    width: 100%; height: auto;
+    display: block;
   }
   .lightbox-close {
     position: absolute; top: 1.2rem; right: 1.5rem; z-index: 10001;
@@ -1420,8 +1422,36 @@
       if (!svg) return;
       content.innerHTML = '';
       const clone = svg.cloneNode(true);
-      clone.style.width = '100%';
-      clone.style.height = 'auto';
+
+      // Get the SVG's natural aspect ratio from viewBox
+      const vb = clone.getAttribute('viewBox');
+      const padding = 80; // px padding from edges
+      const availW = window.innerWidth - padding * 2;
+      const availH = window.innerHeight - padding * 2;
+
+      if (vb) {
+        const parts = vb.split(/[\s,]+/).map(Number);
+        const svgW = parts[2], svgH = parts[3];
+        const aspect = svgW / svgH;
+
+        // Fit to available space
+        let fitW, fitH;
+        if (availW / availH > aspect) {
+          // Viewport is wider than SVG — constrain by height
+          fitH = availH;
+          fitW = fitH * aspect;
+        } else {
+          // Viewport is taller than SVG — constrain by width
+          fitW = availW;
+          fitH = fitW / aspect;
+        }
+        clone.style.width = fitW + 'px';
+        clone.style.height = fitH + 'px';
+      } else {
+        clone.style.width = availW + 'px';
+        clone.style.height = 'auto';
+      }
+
       content.appendChild(clone);
       caption.textContent = label ? label.textContent : '';
       resetView();
